@@ -1,0 +1,613 @@
+$Comment --------------------------------------------------------------------------------
+$Page Max 4 Live Essentials
+$TargetName Max 4 Live Essentials
+mfl_core_pack.png
+
+*Welcome to Max for Live Essentials*
+
+The Max for Live Essentials pack is a collection of synthesizers, audio and MIDI effects as well as control devices made with Max for Live.
+
+*Synthesizers:*
+
+-> $Link Bass <GotoPage:Bass>
+-> $Link Poli <GotoPage:Poli>
+-> $Link Multi <GotoPage:Multi>
+-> $Link Drum Synth <GotoPage:DrumSynth>
+
+*Audio Effects:*
+
+-> $Link Convolution Reverb <GotoPage:Convolution Reverb TOC>
+-> $Link Buffer Shuffler (2.0) <GotoPage:Buffer Shuffler>
+-> $Link Pitch Drop <GotoPage:Pitch Drop>
+
+*MIDI Effects:*
+
+-> $Link Arp <GotoPage:Arp>
+-> $Link Instant Haus <GotoPage:Instant Haus>
+-> $Link MIDI Monitor <GotoPage:MIDI Monitor>
+-> $Link Mono Sequencer <GotoPage:Mono Sequencer>
+-> $Link Note Echo <GotoPage:Note Echo>
+
+*Control Devices:*
+
+A variety of audio and MIDI effect devices that function as modulators. Use them to create modular self-evolving effect networks or to use any signal as a control source for any parameter in your Live Set.
+
+Audio Control Devices:
+-> $Link Device Randomizer <GotoPage:Device Randomizer>
+-> $Link Envelope Follower <GotoPage:Envelope Follower>
+-> $Link LFO Audio <GotoPage:LFO>
+-> $Link Map8 <GotoPage:Map8>
+-> $Link MultiMap <GotoPage:MultiMap>
+-> $Link X/Y Pad <GotoPage:XYPad>
+
+MIDI Control Devices:
+-> $Link Envelope <GotoPage:Envelope>
+-> $Link Expression Control <GotoPage:Expression Control>
+-> $Link LFO MIDI <GotoPage:LFO>
+
+
+*Credits:* (in alphabetical order)
+
+Jeremy Bernstein
+Harry Bissett
+Stefan Brunner
+Joshua Clayton
+Matthew Davidson (aka Stretta)
+Maria Gkotzampougiouki
+Darwin Grosse
+Henrik Hahn
+Alex Harker
+Matt Jackson
+Christian Kleine
+Marco Kuhn
+Olivier Pasquet
+Manuel Poletti
+Dylan Wood
+
+More Packs available here:
+$Link www.ableton.com/packs <http://www.ableton.com/packs>
+
+$Comment --------------------------------------------------------------------------------
+$Page Bass
+$TargetName Bass
+Bass.png
+
+*Welcome to Bass*
+
+Bass is a virtual analog, monophonic synthesizer that brings the whole sonic palette from deep and classic to heavily distorted, rumbling bass sounds.
+
+Bass's main feature set consists of its four quality analog-modeled oscillators and a sub oscillator. Bass comes with a filter section with five different filter types together with a drive parameter and a dedicated envelope. The modulation section contains an LFO to achieve subtle to extreme modulations of selected parameters.
+
+There are five virtual analog *Oscillators:* A sine and sawtooth oscillator as well as a triangle and a rectangle oscillator, each having independent volume controls. The latter two also provide support for varying pulse width, and all oscillators can be detuned against each other using the Analog control.
+
+The *Suboscillator* consists of a single sine wave generator which can be distorted using its 'Tone' parameter to create a wide harmonic spectrum. You can send the suboscillator through the filter section or bypass it using the 'Thru' toggle.
+
+Bass features a dedicated section for Hard *Sync* and *Ring* Modulation, whose parameters are shown below the oscillators, plus an additional control for using the amplitude envelope to adjust the pitch of the Sync or Ring modulation. The tuning frequency for Sync and Ring Modulation may further be adjusted using a single parameter.
+
+Bass comes with five different *Filter* types. All filters support cutoff as well as resonance, and the cutoff can be modulated using the filter envelope whose amount can be adjusted using the 'Env' parameter. The 'Drive' parameter overdrives the signal before it is passed to the filter. The two low-pass filters differ substantially in the way they modify the signal, with each providing a unique sound shaping characteristic.
+
+The *LFO* supports several function shapes with an optional 'Fade-in' parameter to smoothly fade-in its amount to the four modulatable parameters. 
+
+The *Master* section comes with coarse and fine pitch-tuning options to modify the pitch of the sound on-the-fly, allowing for coarse to microtonal detuning. A global *Distort* knob allows for final saturation. 
+
+The two *Envelopes* of Bass for the filter cutoff frequency and the volume amplitude use non-linear shapes. The range of the Attack, Decay, and Release portion may also be extended using the 'Env Time' multiplier.
+
+$Comment --------------------------------------------------------------------------------
+$Page Poli
+$TargetName Poli
+Poli.png
+
+*Welcome to Poli*
+
+Poli is a classic sounding virtual analog synthesizer designed for polyphonic chords and phrases. Its character comes from detuneable oscillators, a diverse modulation section, and a built in chorus. 
+
+The oscillator section contains five individual sound generators with independent volume control. The 'Saw,' 'Square' and 'Sub' oscillator are virtual analog oscillators. The pitch of the Saw can be modulated by the Square oscillator signal using the 'XMod' control to create subtle to harsh timbral variations. 'Sub' is also a square wave played either one or two octaves below the main pitch and adds a rich bass tone.
+
+'Ring' is an oscillator that creates a signal by ring modulating the pulse wave with a sine of a given frequency that can be adjusted using the 'Freq' parameter and a 'Key'-tracking amount. The 'Noise' knob adds white noise to the mix.
+ 
+The oscillators are all fed into a high- and low-pass *Filter.* The low-pass filter can be modulated in various ways: A resonance control that emphasizes the frequency content around the filter's cutoff frequency and 'Key'-, 'Velocity'-, and 'After-touch'-tracking for performative control of the filter's cutoff frequency.
+
+The filter comes with its own ADSR *Envelope* with analog, non-linear shapes and may affect the filter's cutoff frequency in either positive or negative directions using the 'Env' parameter. 
+
+The core of the *Modulation* section is an LFO which can either be set to free-running (w/ or w/o retrigger on note-on) or synced to Live's transport. Several waveform shapes are available and the LFO rate can be further modulated using the filter envelope. The LFO may be used to modulate the filters' cutoff frequencies independently as well as the overall volume. Pitch, pulse-width, and ring modulation frequency may further be modulated by either the LFO or the filter envelope using the associated menus.
+
+Within the *Master* section the 'Pbend' control adjusts the pitch range that the pitch-bend wheel will be able to change the signal's pitch and the switch beneath selects whether the transposition affects only the saw signal or all oscillators. 
+
+The built-in *Chorus* comes with three modes. Mode A is a soft and subtle effect while B is a classic string chorus. Mode C is an aggressive 'rave'-type effect with a distinctive character.
+
+Two detune options are also provided in the Master section. The square oscillator is detuneable in semitones in relation to the note's pitch and the saw oscillator can be detuned in cents with respect to the note’s pitch. These detunings may be used to create a variety of effects ranging from subtle beatings to multitimbral mixtures.
+
+'Rnd Pan' adjusts the amount that each note will be panned randomly to either the right or left channel.
+
+$Comment --------------------------------------------------------------------------------
+$Page Multi
+$TargetName Multi
+Multi.png
+
+*Welcome to Multi*
+
+Multi is a versatile and fun multimode synthesizer which comes with six synth engines in a single device. Each engine features four sound manipulating parameters that are unique for each engine. Global parameters are attack and release time and the overall signal volume. 
+
+These six modes are: 
+
+*Mode 1:*  Feedback FM
+
+Feedback FM is like FM but introduces Feedback on the Modulator.
+
+-> M1: Strength
+-> M2: Depth
+-> M3: Filter Brightness
+-> M4: Feedback
+
+*Mode 2:* Mono Arp Lead Synth
+
+-> M1: Arp Pattern
+-> M2: Arp Speed
+-> M3: Morph Filter
+-> M4: Add more Oscillators at 5, 7, or 9 semitone intervals
+
+*Mode 3:* Analog 8 Voice Subtractive Synth
+ 
+-> M1: LFO to Filter Amount and Speed
+-> M2: Detune 2 Oscillators
+-> M3: Filter Cutoff
+-> M4: Filter Types (LP, HP, BP, Notch)
+
+*Mode 4:* Sample Playback
+
+-> M1: Sample type chooser: Piano, Celeste, Voice Vocoder, Atmospheric Pad, Hoover Rave
+-> M2: Chord Type (Introduced with M4 = dry/wet)
+-> M3: Chord Arpeggio Split (Introduced with M4 = dry/wet)
+-> M4: Dry/Wet between single sound and chord mode (M2, M3)
+
+*Mode 5:* Karplus Strong (String synthesis)
+
+-> M1: Brightness
+-> M2: Noise Burst (Injection) length
+-> M3: Pickup-position
+-> M4: String Length
+
+*Mode 6:* Additive Synthesis: 
+
+-> M1: Number of Oscillators
+-> M2: Frequency Spread
+-> M3: Timbre Variation Rate
+-> M4: Timbre Variation Depth
+
+$Comment --------------------------------------------------------------------------------
+$Page DrumSynth
+$TargetName DrumSynth
+DrumSynth.png
+
+13 custom-created synthesizers for drum and percussion sounds, with velocity control over just about everything. Don't be afraid to try them for leads and basses too.
+
+/DrumSynth/ is a collection of 13 Max for Live instruments that use synthesis to produce a wide variety of electronic drum and percussion sounds. Each instrument is designed to replicate a particular type of drum sound, and they can be mixed and matched in Live's Drum Racks to create custom synthetic drum kits. DrumSynth also comes with a number of pre-made Drum Racks in a variety of styles.
+
+On the next page, you'll learn about the general features of the DrumSynth instruments.
+
+Developed by: Christian Kleine
+
+$Comment --------------------------------------------------------------------------------
+$Page DrumSynth Features
+$TargetName DrumSynth Features
+
+Each of the DrumSynth instruments was designed to take full advantage of MIDI velocity, and velocity can be assigned to each parameter independently via the instrument's *Advanced Page.* This page can be opened by clicking the blue button in the upper right corner of each instrument:
+AdvancedPage.png
+
+Toggle velocity control on or off for a parameter with the checkbox next to its name. You can toggle velocity on or off for all parameters at once via the top checkbox:
+VelocityToggles.png
+
+The *Min (%)* and *Max (%)* sliders allow you to control the intensity of the velocity control over the parameter. You can also invert the velocity response by setting the Min to a higher number than Max.
+MinValSliders.png
+
+The *Curve* sliders change the scaling of the velocity. Positive Curve values increase the slope exponentially, while negative values increase it logarithmically. At 0, the slope is linear.
+CurveSliders.png
+
+$Comment --------------------------------------------------------------------------------
+$Page Convolution Reverb TOC
+$TargetName Convolution Reverb TOC
+ConvolutionReverbPro.png
+*Convolution Reverb Suite*
+
+A sample based reverb suite with hundreds of spaces, two reverb devices, and a utility for creating your own reverb spaces. The Convolution Reverb Suite is a set of three devices used for recreating the space or sound of real places or other hardware.
+
+-> $Link *Convolution Reverb* <GotoPage:Convolution Reverb>
+
+-> $Link *Convolution Reverb Pro* <GotoPage:Convolution Pro>
+
+-> $Link *IR Measurement Device* <GotoPage:IR Measurement Device>
+
+
+*Credits:*
+Hiss.png
+Powered by the $Link HISSTools <http://thehiss.org/> Impulse Response Toolbox v1.0 From $Link CeReNeM at the University of Huddersfield <http://eprints.hud.ac.uk/14897/>
+
+Programmed by Alex Harker
+Product Design: Matt Jackson
+
+*Convolution IRs generously provided by:*
+
+Acousticas
+$Link Audio Communications Group, TU Berlin <http://www.ak.tu-berlin.de/>
+$Link CeReNeM, University of Huddersfield <http://eprints.hud.ac.uk/14897/>
+$Link Christian Kleine <http://www.christiankleine.com/>
+$Link Echochamber <http://www.echochamber.ch/>
+$Link Jez Wells, MRC, University of York <http://www.jezwells.org/Computer_music_tools.html>
+Matt Jackson
+$Link OpenAir <http://www.openairlib.net/>
+$Link Studio Tools <http://studiotools.de/>
+IR Dach, IR Hallraum and IR Deserted Bathroom with kind permission by Philip Albus
+
+$Comment --------------------------------------------------------------------------------
+$Page Convolution Reverb
+$TargetName Convolution Reverb
+ConvolutionReverb.png
+*Convolution Reverb*
+
+The *Convolution Reverb* device offers high-quality convolution using Impulses taken from real spaces or analog/digital hardware. Drop an impulse (or a single channel of a true stereo impulse stored as two stereo files ending with L and R) to load it in the convolution engine. Offline control is offered over the decay time and size of the virtual space. The predelay time, width of the reverb, and levels can be controlled in real time.
+
+*Tip:* The Convolution Reverb and the Convolution Reverb Pro are semi-interchangeable. All shared parameters will be transferred if you drag-and-drop one onto the other from the browser to replace it.
+/Warning:/ Parameters from the Pro version that are not supported in the normal version will be lost!
+
+$Comment --------------------------------------------------------------------------------
+$Page Convolution Pro
+$TargetName Convolution Pro
+ConvolutionReverbPro.png
+*Convolution Pro*
+
+The *Convolution Reverb Pro* device adds further controls to those offered by the Convolution Reverb Device using a switchable tab view. Added features include:
+
+Realtime EQ, virtual positioning, modulation, frequency-dependent damping, and shape controls (impulse response trimming, reversal, and direct sound handling.)
+ConvProExtras.png
+
+Additionally, the Early and Late parts of the reverb may be taken from different Impulse Responses (by placing the device in Split Mode.)
+ConvProSplit.png
+
+This allows for a richer and more flexible control over the virtual space. IR selection from the factory set of IRs can be done using the Type and IR menus, although IRs (or even Audio Clips) may also be dropped onto the waveform space which adds the sample's parent folder as a temporary location in the Type menu.
+
+When you use the "Collect and Save" entry in Live's file menu, the used samples will also be saved with your project.
+
+*Tip:* The Convolution Reverb and the Convolution Reverb Pro are semi-interchangeable. All shared parameters will be transferred if you drag-and-drop one onto the other from the browser to replace it. 
+/Warning:/ Parameters from the Pro version that are not supported in the Normal version will be lost!
+
+$Comment --------------------------------------------------------------------------------
+$Page IR Measurement Device
+$TargetName IR Measurement Device
+IRMD.png
+*IR Measurement Device*
+
+This lesson will show you how to use the *IR Measurement Device* to create your own Impulse Responses (IRs) for use in convolution engines such as the Convolution Reverb and Convolution Reverb Pro.
+
+Divider.tif
+Live's documents are known as Live Sets. This lesson is accompanied by a Live Set which you'll be interacting with as you follow the lesson. Whenever you're ready, please $Link load the Live Set <Set:../Sets/Making an IR.als>.
+Divider.tif
+
+/Warning:/ In order measure a source, one must create a /feedback loop/ which we have done in this Set. Feedback loops can be dangerous to your speakers and your ears! Please do not use headphones and be cautious with volume. In this particular lesson, it's best to stick to the instructions.
+
+Once you've loaded the Set, click the /Next Page/ button to start the lesson.
+
+$Comment --------------------------------------------------------------------------------
+$Page IR Measurement Device Overview
+$TargetName IR Measurement Device Overview
+In this Set, we will be creating a simple IR of Live's *Reverb* effect. Return Track A contains the IR Measurement Device and Return Track B contains the Reverb we will sample. (Once you understand how the measurement process works, you can replace the Reverb with any plugin you want to measure.) The Measurement Device will send a signal out to the Reverb and the Reverb will send an affected signal back to the Measurement Device for recording and measuring.
+
+Notice how Return Track A ("A Measure") is sending to Return Track B ("B Source") and B is sending back to A. This is our feedback loop. The feedback is stopped because the measurement device is not passing its input signal out right now. (That happens when "Audition" and "Input" are enabled in the IR Measurement Device.)
+
+Double click the track title bar for "A Measure" and look at the IR Measurement Device starting with the controls on the left. 
+
+The left side of the device controls the signal sent out to measure the source.
+IRMDLeft.png
+
+*Chan* sets number of channels we want to record. If the source has the same output regardless of the panorama of the input (like our built-in Reverb), we will use "Mono to Stereo," which will send a mono signal and record a stereo IR. If the signal has a separate stereo response for each channel of input then we need to record two stereo files. This is called True Stereo.
+*Amp* is the amplitude (volume) of the signal. You generally want to make this as loud as you can without clipping, but it's better to be 5-10 dB below clipping than to clip your signal, since the tool can normalize a quieter result but clipping will ruin your IR.
+*Sweep* controls the quality of the measurement when using a sweep.
+*IR Time* sets the time we want to record for each stereo measurement. It's better to overestimate here than to underestimate, since underestimating will cut your IR short.
+
+The controls on the right are for listening and saving; that's explained later in the lesson. To hear the effect we'll be capturing, briefly toggle the "Tone" switch.
+IRMDTone.png
+
+You should hear a reverberated sine wave. The sine signal is coming from the Measurement device. The reverberation is coming from the Reverb on Send B. 
+
+$Comment --------------------------------------------------------------------------------
+$Page Making Your First IR 
+$TargetName Making Your First IR
+To make a basic IR in this set, simply press the "Impulse" button and wait a few seconds.
+
+To listen to the result, let’s first disable the feedback loop by turning off the send amounts on each send.
+Now toggle the "Audition" switch on.
+To hear a click convolved with our recording, press the “Left”, “Center” and “Right” buttons. Each lets you hear what sounds coming from those panoramas will sound like using the IR.
+
+To hear what some real material sounds like using our new IR, let's turn off Track B so the only send we hear is Send A with the Measurement Device.
+Toggle the "Input" switch on to allow the signal sent to the device to be used as the Audition signal. 
+Now play the first clip "Congas-128bpm" on Audio Track "Send to Test." 
+You should hear the Congas going through a Reverb. That's the sound of the convolution using our new measurement!
+
+Let's compare it to the original source on Send B by toggling the Solo on on Send B.
+Now to compare it to our recording, toggle the Solo on on Send A.
+Send A should sound like Send B.
+Turn off "Input" and "Audition" so there isn’t an accidental feedback loop later on.
+
+Save your IR to use in a convolution device by clicking the save button and choosing a name and location.
+
+$Comment --------------------------------------------------------------------------------
+$Page Buffer Shuffler 2
+$TargetName Buffer Shuffler
+
+Buffer_Shuffler_2.png
+Buffer Shuffler is a premium audio effect that comes with Max for Live. It reads incoming audio into a buffer, divides the audio into chunks and then plays the chunks back in a random or user-determined order.
+
+If you launch a one-bar long clip, the first time through you hear it unprocessed. Each subsequent loop, however, is chopped up and reordered by Buffer Shuffler according to a pattern that can be either the same or different for left and right channel. 
+
+The grid represents a specified duration of time expressed in bars and beats, with its minimum length being one beat. Time is represented horizontally and each chunk of the bar vertically. The number of chunks in the grid is determined by the *Steps* knob. If for example, the knob is set to "8," this means the bar is divided into eighth notes.
+
+If you click within the grid of either “Left” or “Right” tab you can change which buffered eighth note plays at which time. For example, to play only the first eighth note eight times, select the lowest cell for each step. 
+
+By default, the *Duplicate* button at the top left corner is enabled and therefore drawing in either Left of Right grid duplicates the pattern onto the other grid. To unlink the two grids and allow independent shuffling of the left and right channels, disable Duplicate.
+
+In addition to “Right” and “Left” there are six more tabs with their own grids that control different aspects of the pattern. They can be turned on or off by their respective buttons on the left. These are:
+-> *Stutter* creates a stuttering effect. The number of stutters per step depends on the value of each cell. 
+-> *Gate* mutes the sound of each step after some time according to the value of each cell. The lowest value will allow the whole slice to go through, while the highest value gives no sound.
+-> *Pitch* can transpose each rhythmic slice in fractions of semitones.
+-> *Shift* introduces a frequency shift in Hertz.
+-> *Amp* sets the amplitude per step. 
+-> *Pan* sets the amount of panning per step. 
+
+In addition to manual editing of the shuffling grids, Buffer Shuffler provides edit buttons under the grids that allow you to adjust all steps at once:
+-> The *directional arrows* rotate the playback steps in one of four directions. These are useful if, for example, you like the sound of a particular grid pattern, but would like it to occur at a different position in the bar.
+-> *Dice* changes the grid pattern according to the selection in the dropdown menu. It can, for example, invert it, move it one step up or scramble the playback positions for all of the chunks. Dice can also be set to affect the pattern automatically at every new iteration of the grid.
+-> *Reset* returns the shuffling grid to its "default" state, allowing each step to play the chunk that was originally at that playback position.
+
+Buffer Shuffler also allows you to adjust the playback direction for each step. The directional toggles are underneath the shuffling grids. Each step can be set to forward, backward or off. 
+
+The three buttons to the right of the directional toggles adjust all directions at once:
+-> *R* (Reset) sets all steps to play forward.
+-> *D* (Dice) randomizes the directions to forward, backward or off.
+-> *A* (Auto) Enables/disables the auto-dice mode which triggers dice once at the beginning of each cycle.
+
+If you press the *Rules* button you toggle between *Steps* and *Constraints* editing. In Rules mode, any deselected grid locations will be unavailable for manual (or randomized) editing in Steps mode.
+
+Finally, some more global controls include:
+-> *Freeze* : When enabled, the current step is repeated.
+-> *L* (Link): When enabled, with Freeze turned on, all effects are also frozen to their current value. 
+-> *Bypass* : When enabled, Buffer Shuffler is bypassed and has no effect on incoming audio. 
+-> *Gain* : Sets the total output level.
+-> *Dry/Wet* : Adjusts the balance between the incoming and processed audio.
+
+
+$Comment --------------------------------------------------------------------------------
+$Page Pitch Drop
+$TargetName Pitch Drop
+Pitch_Drop.png
+
+'Pitch Drop' recreates the sound of a vinyl record slowing down after the turntable's motor is stopped. This results in the effect of the sound being pitched down.
+
+You can set the duration until the motor and hence sound stops using the *Drop Duration* knob, whereas the toggle above lets you choose between synced time according to the Live meter or free time adjustments.
+
+The *Soft/Sharp* toggle switches between a smoother or more brutal drop.
+
+*Credits* : Tomasz Kaye (alias Mormo)
+
+$Comment --------------------------------------------------------------------------------
+$Page Arp
+$TargetName Arp
+Arp.png
+
+Arp is an advanced pattern-based MIDI arpeggiator. It can sort, repeat, and transpose incoming MIDI note patterns in various ways, while controlling a number of other parameters.
+ 
+More precisely, the *Steps* sets the length of the loop comprised by active multislider steps. The current step's *velocity,* *length* and *mapped data* values are paired with the current midi note. These parameters have their own tab each and can be set independently from each other.
+In order for the settings in *Map* tab to become usable, you need to map a function outside of Arp. This way you can control a Live parameter or a parameter of another device through the Map multislider. Additionally you can use *CC Send* to connected hardware devices in order to control MIDI spec parameters (such as volume – CC07). There is also the option of adding a *Smooth* factor for more or less gradual transitions between step values.
+
+You can define a range within which the value of each step can be randomized by pressing the *Rand* button, and deactivate individual steps by clicking on their corresponding blue buttons. The fourth tab corresponds to the Advanced mode and we will explain it a little later.
+ 
+The *Note* icons provide different ways that the incoming notes can be sorted:
+-> *E* (As played) : This option follows the order with which the MIDI notes were input
+-> *Up* : Ascending pitch order
+-> *Down* : Descending pitch order
+-> *Chord* : All notes played simultaneously
+-> *Random* : Random output
+-> *Follow* : Note sorting follows the selected Octave sorting option.
+ 
+The *Octave* knob sets the number of repetitions of the incoming note pattern, with every repetition transposing the pattern an octave up.
+You can also use the number box under it to adjust your transpositions at a semitone level. The Octave icons decide the sorting of the octaves:
+-> *Up* : Ascending order
+-> *Down* : Descending order
+-> *Up and Down* : Ascending order first then descending. When this option is selected along with the Follow option for Notes, you can achieve the "mountain effect" where notes within octaves are sorted in ascending order when octaves are ascending and in descending order when octaves are descending.
+-> *Random* : Random octave.
+ 
+When the *Advanced* mode is on, the existing octave sorting options are disabled and you decide how many repetitions of the incoming pattern you want to have at which octaves. You can also set an independent semitone transposition per octave.
+ 
+Other Arp controls are:
+-> *Division* : Sets the duration of the steps from whole to 64th notes, with the additional options of having triplets and dotted notes.
+-> *Sync/Free Mode* : Arp can run in sync with the transport tempo or you can freely set its tempo.
+-> *Swing* : According to the amount set, it creates less or more intense rhythmic variations.
+-> *Key Retrigger* : When activated, new input forces the multislider loop to be retriggered.
+-> *Hold* : When activated it does not send note off messages unless new input arrives. 
+
+$Comment --------------------------------------------------------------------------------
+$Page Instant Haus
+$TargetName Instant Haus
+InstantHaus.png
+
+*Instant Haus* 
+
+is a beat generator optimized for house music or broken beats and contains a large variety of patterns for both styles.
+
+The *Pattern* and *Note* knobs let you change each drum's pattern or sample individually, while the *House/Breaks* tab switch allows to instantly switch genres. Each drum also has velocity range controls which can expand or constrain the playback velocity.
+
+For even more flexibility, you can use MIDI notes to adjust the various parameters, allowing you to "play" the pattern changes and/or transpositions in real-time. The *Shift* and *Swing* controls, for example, allow you to add short delay and subtle timing variations to each drum. 
+Pressing one of the *Random* buttons immediately dials in a new pattern, transposition, swing, shift or velocity setting, for an endless number of possibilities. 
+Although the included samples are perfect for electronic dance music, you can create your own signature sound by using the Instant Haus device with your own Drum Racks.
+Finally, you can store sets of patterns and parameter settings in a *Preset Matrix* for quick recall to easily switch your favorite patterns on the fly during your performance.
+
+$Comment --------------------------------------------------------------------------------
+$Page MIDI Monitor
+$TargetName MIDI Monitor
+Midi_Monitor_Main.png
+
+MIDI Monitor is a utility device that displays the latest MIDI messages received.
+ 
+At the bottom of the device, there are the following options:
+
+-> *Mode* : You can choose to view the incoming data as a list, along with the exact time they occurred (Flow View), or as notes drawn on a staff (Note View).
+
+-> *Note Pitch View* : You can select between viewing the pitches either with their MIDI note number or MIDI note name.
+
+-> *Freeze* : Provides the possibility of freezing and unfreezing MIDI Monitor.
+
+-> *Clear* : Clears the Flow Display.
+ 
+On the right side, four important types of MIDI data are listed, and by clicking on their respective buttons you can choose to filter out messages of a particular category. These categories are:
+
+-> *Note Pitch* : Note on and Note off data. When displayed, they appear as a Pitch – Velocity pair. Velocity is always zero for note offs and any other number in the range of 1-127 for note ons. 
+
+-> *CC* : Continuous Controller Data. When displayed, they appear as a Controller ID – Value pair, both in the range of 0-127. Common CCs are Volume, Panning, and Mod Wheel.
+
+-> *Pitchbend* : The amount of pitch bend in the range of 0-127.
+
+-> *Aftertouch* : The amount of aftertouch in the range of 0-127.
+ 
+A comprehensive overview of MIDI data can be found $Link here <http://www.midi.org/techspecs/midimessages.php>
+
+$Comment --------------------------------------------------------------------------------
+$Page Mono Sequencer
+$TargetName Mono Sequencer
+MonoSequencer.png
+
+An analog-inspired step sequencer with independent phases for parameters such as pitch, octave, velocity, repeat, and gate.
+
+$Comment --------------------------------------------------------------------------------
+$Page Note Echo
+$TargetName Note Echo
+Note_Echo.png
+
+Note Echo is a MIDI echo effect.
+
+When *Sync* mode is on, the device is synchronized with the transport tempo. In this case, the numbers at the top of the device correspond to different time divisions of a beat; if “1” is selected then the notes repeat at every 16th note, if “2” is on then the notes repeat at every 8th note and so on.
+ 
+Additionally, when in Sync mode, you can add an *offset* value, varying from -33.3% to 33.3%. This value affects the rate at which the notes are repeated. For example, if “4” is selected and the offset is 0%, the echoed notes are repeated at every quarter note, but if the offset is -33.3%, the time space between notes is reduced to 2/3 of its initial value.
+ 
+When Sync mode is off, the above options are deactivated, and you can set the exact repetition time in milliseconds.
+ 
+The *Dry Input* option is either allowing the very first note to be heard (Thru) or not (Mute).
+ 
+*Pitch* can be set between -12 and 12 semitones and its value is added to the pitch of every next echoed note in an accumulative way.
+ 
+*Feed Delay* affects the velocity of the echoed notes, while *Feedback* affects the number of repetitions; when set at 0% there is only one echoed note and when at 100% there is an indefinite number of them.
+
+$Comment --------------------------------------------------------------------------------
+$Page Envelope Follower
+$TargetName Envelope Follower
+EnvelopeFollower.png
+
+/Envelope Follower/ is a Max for Live device that tracks the changes in volume of an incoming audio signal and uses this information to modulate a mapped parameter. This could be used, for example, to change the cutoff of a filter when transients occur. 
+
+To use the Envelope Follower, place it in the track containing the audio signal that you want to track. Then click the *Map* button to enter the device's mapping mode. Once in mapping mode, click any parameter in your Live Set to control it with the Envelope Follower. Note that the Map button will change to show the name of the mapped parameter. Click the X next to the Map button to unmap the parameter. 
+
+The sliders next to the mapping controls allow you to set the range of parameter modulation, from 0 to 100%. Note that the minimum value can be higher than the maximum value, for inverted modulation.
+
+*Gain* sets how much gain is applied to the incoming audio signal. The Gain knob works in conjunction with the minimum and maximum sliders to determine the intensity of the parameter modulation.
+
+*Rise* smooths the attack time of the envelope, while *Fall* smooths its release.
+
+The *Delay* knob sets the length of delay between the incoming audio signal and the modulation output. The button below the knob toggles the delay between beat-synced divisions and milliseconds.
+
+$Comment --------------------------------------------------------------------------------
+$Page LFO
+$TargetName LFO
+LFO.png
+
+The /LFO/ is a Max for Live device that uses an LFO (low frequency oscillator) to modulate a single parameter in your Live Set. In the Max Essentials LFO is introduced as a Max Audio as well as a Max MIDI Effect.
+
+To use the LFO, place it in any audio or MIDI track. (To keep your Set organized, we recommend placing it in the track that contains the parameter you plan to modulate.) Then click the *Map* button to enter the device's mapping mode. Once in mapping mode, click any parameter in your Live Set to control it with the LFO. Note that the Map button will change to show the name of the mapped parameter. Click the X next to the Map button to unmap the parameter.
+
+The *Rate* knob determines the frequency of the LFO. This can be toggled between Hertz and tempo-synced beat divisions by toggling the *Freq/Sync* button.
+
+You can select between seven different LFO waveforms via the pulldown menu.
+
+The *Hold* button temporarily freezes the LFOs output at its current value.
+
+*Jitter* adds random variation (jitter) to the current value, while *Smooth* smooths both the jitter and the oscillator's value changes
+
+*Phase* changes the current position of the LFO's waveform, while *Offset* determines the center point of the mapped parameter.
+
+$Comment --------------------------------------------------------------------------------
+$Page Map8
+$TargetName Map8
+Map8.png
+
+*Map8* is a utility Macro device especially useful with Push and other 8 knob controllers.
+
+The primary difference between Map8 and a Rack with Macros is the ability to map to any parameter across Live, not just something in the same rack. Using this feature allows you to control parameters on other tracks (or the same track) without switching track focus on Push. But there are some other great reasons to use it even if you are only using a mouse.
+
+Features:
+Eight Macro knobs used to control other parameters. The number of the Macro goes from left to right starting with 1 on the top row and starting with 5 on the bottom row.
+
+*Map* buttons: Click the Map button then click any parameter in Live to map the corresponding Macro. When blinking, the device is waiting for you to pick a parameter. The name of the mapped parameter will then appear in this location. You can press this button at any time to remap the Macro to something else.
+
+There is a *Clear* button used to unmap a macro and reset it to nothing.
+
+*Min* and *Max* adjust the range that the Macro will cover in % of the parameter's range. Note: Changing the Min and Max will also update the current value of the parameter.
+
+*Curve* adjusts how quickly the Macro moves from min to max. A positive value will make the Macro reach the maximum more quickly and a a negative will make it reach the maximum more slowly.
+
+Beside each mapping row is a *Bypass* toggle. This button allows you to temporarily remove the mapping so that you can control the mapped parameter with your mouse or other control.
+
+Finally the mapping section can be closed up with the *Fold* button to make the device smaller when in use.
+
+$Comment --------------------------------------------------------------------------------
+$Page MultiMap
+$TargetName MultiMap
+Multi_Map.png
+
+*MultiMap* is a control Device that allows you to map up to eight parameters anywhere in your Live set and control their values simultaneously by handling the *Input* dial on the left. You can map by first clicking on any *Map* button and then on the parameter you want to control, while you can unmap by pressing the *X* buttons. It is also possible to activate/deactivate any mapping by clicking on its corresponding circle on the left. For every mapped parameter you can set a *minimum* and *maximum* value and adjust the *curve* that describes the relationship between input and output. 
+
+$Comment --------------------------------------------------------------------------------
+$Page XYPad
+$TargetName XYPad
+XYPad.png
+
+*XY Pad* is a control Device that allows you to map up to two parameters anywhere in your Live set, and control them at the same time by moving the blue circle in a two dimensional space.
+
+You can map by clicking on the corresponding *Map* buttons for each dimension and then on the parameter you want to control. The number boxes next to the Map buttons show the current value for each parameter.
+
+Additionally, on the right side of the device you can find the X and Y tabs that contain various settings for each axis:
+-> *Min* and *Max* : Set the minimum and maximum value for each parameter 
+-> *Curve* : Here you can draw a curve according to which the values of each parameter increment or decrement. The default is linear, to which you can *reset* at any moment or *invert.*
+
+$Comment --------------------------------------------------------------------------------
+$Page Envelope
+$TargetName Envelope
+Envelope_main.png
+
+The /Envelope/ is a Max for Live device that uses an envelope function generator to modulate a single parameter in your Live Set. In the Max Essentials, /Envelope/ is introduced as a Max MIDI Effect.
+
+To use /Envelope/ place it in any MIDI track. (To keep your Set organized, we recommend placing it in the track that contains the parameter you plan to modulate.) Then click the *Map* button to enter the device's mapping mode. Once in mapping mode, click any parameter in your Live Set to control it with the /Envelope./ Note that the Map button will change to show the name of the mapped parameter. Click the X next to the Map button to unmap the parameter.
+
+The two sliders to the right of the mapping field allow you to control the overall range of parameter modulation using a minimum and maximum value as percentage of the parameter range.
+
+/Envelope/ comes with three different trigger modes:
+ -> *Trigger* : Uses MIDI Note On messages to start the envelope and MIDI Note Off messages to begin the release
+ -> *Sync* : Retriggers the envelope at a regular beat interval which can be specified below
+ -> *Loop* : Begins the envelope on MIDI Note On trigger but retriggers the envelope once it has finished a full cycle.
+ -> *Manual* : The big circle above the trigger selection menu allows you to manually trigger the envelope by mouse clicks.
+
+The *Amount* knob determines the maximum parameter value of the envelope which will be reached at the end of its attack phase.
+
+The *Sustain* toggle allows to (de-) activate the sustain phase of the envelope to create either ADSR or ADR shapes.
+
+The *Attack,* *Decay,* *Sustain,* and *Release* knobs allow you to adjust the actual waveform of the envelope. The *Attack,* *Decay,* and *Release* knobs have an additional number box below to adjust the shape of the function segment for nonlinear characteristics.
+
+The slider in the lower left corner allows you to change the overall length of the envelope in time units.
+
+$Comment --------------------------------------------------------------------------------
+$Page Expression Control
+$TargetName Expression Control
+ExpressionControl.png
+
+*Expression Control* is a control device that allows you to pair a MIDI parameter (Velocity, Modwheel, Pitchbend, Aftertouch, and Keytrack) with any parameter in your Live set; then the values of the selected MIDI category are used to control the mapped parameter.
+
+You can map by first clicking on any *Map* button and then on the parameter you want to control. It is also possible to unmap by clicking on the *X* buttons and set a minimum and a maximum value for each target parameter.
+
+At the bottom section of the device you can choose between *logarithmic* and *linear* mapping of the input to the output for each MIDI In category, as well as the amount of *Smoothing* in milliseconds which decides how gradual the transitions between values are.
+
+$Comment Status: Translate

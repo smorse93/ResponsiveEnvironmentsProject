@@ -1,0 +1,81 @@
+$Comment --------------------------------------------------------------------------------
+$Page Connection Kit
+$TargetName Connection Kit
+ConnectionKit.png
+
+*Max for Live Connection Kit*
+
+このPackでは、幅広いテクノロジーや通信プロトコルとLiveを接続し、コントロール、モニターできます。レゴ マインドストームまたはArduinoを使用してセンサーやモニターに接続したり、JSONベースのAPIでサウンドの世界をウェブに広げたり、OSCデータをMIDIデータに変換したりできます。Connection Kitは、Liveを使用した音楽およびサウンド作成の新たな可能性を開きます。
+このPackは11のMax for Liveデバイスから構成されており、ツールキットとして使用したり、（Maxプログラミングの知識があれば）Maxで開いて独自のニーズに合わせて変更したりできます。ここで各デバイスについて少し説明します。
+
+
+*OSC Leap Motion*
+$Link 詳細 <http://github.com/Ableton/m4l-connection-kit/blob/master/OSC%20Leap%20Motion/README.md>
+
+このデバイスは、Leap Motionを使用し、ManosOscアプリケーションを活用してMIDIノートを生成します。Leap Motionは手や指の動きを入力とするハードウェアセンサーデバイスで、ManosOscは生のセンサーデータを受信してOSCデータに変換します。デバイスはOSCメッセージを取り込みMIDIピッチとベロシティデータに変換します。
+
+
+*OSC Send*
+$Link 詳細 <http://github.com/Ableton/m4l-connection-kit/blob/master/OSC%20Send/README.md>
+
+このデバイスではマップ可能なLive要素の値をOSCデータとして送信できます。例として、LFOによりコントロールされるスライダーやダイアルからProcessingに値を送信し、シンプルな動きのビジュアルを作成します。
+
+
+*OSC MIDI Send*
+$Link 詳細 <http://github.com/Ableton/m4l-connection-kit/blob/master/OSC%20MIDI%20Send/README.md>
+
+このデバイスは、MIDIデータをOSCメッセージとしてProcessingスケッチに送信します。スケッチが実行されると、仮想ストリングが表示され、ベロシティセンシティブで操作できます。
+
+
+*OSC TouchOSC*
+$Link 詳細 <http://github.com/Ableton/m4l-connection-kit/blob/master/OSC%20TouchOSC/README.md>
+
+TouchOSCデバイスでは、任意のTouchOSCレイアウトのコントローラーをLive要素にマップし、これらの値をiPadまたはiPhoneからリモートコントロールできます。
+
+
+*OSC Monitor*
+$Link 詳細 <http://github.com/Ableton/m4l-connection-kit/blob/master/OSC%20Monitor/README.md>
+
+シンプルかつ便利なOSCデータモニターで、特定のポートに入力されるすべてのOSCメッセージを表示できます。
+
+
+*JSON Weather*
+$Link 詳細 <http://github.com/Ableton/m4l-connection-kit/blob/master/JSON%20Weather/README.md>
+
+JSONデータをインターネットからフェッチする方法を説明した2例のひとつで、ディクショナリを通して解析しそこから特定のデータ内容を問い合わせます。このデバイスは気象データをフェッチおよび表示してサウンドに変換します。
+
+
+*JSON Video*
+$Link 詳細 <http://github.com/Ableton/m4l-connection-kit/blob/master/JSON%20Video/README.md>
+
+JSONフォーマットのウェブデータのフェッチ方法を説明した2例のひとつで、オンラインビデオ共有サービスVineの #ableton でタグ付けされたループするビデオを使用します。
+
+
+*Camera*
+$Link 詳細 <http://github.com/Ableton/m4l-connection-kit/blob/master/Camera/README.md>
+
+このデバイスでは、ウェブカメラのデータをLiveに取り込み、ベーシックな動作検出アルゴリズムを使用してマップ可能なLiveパラメーターをコントロールします。
+
+
+*Arduino*
+$Link 詳細 <http://github.com/Ableton/m4l-connection-kit/blob/master/Arduino/README.md>
+
+USB経由でシリアルポートを使用してArduino UnoをLiveに接続し、Arduinoのアナログ入力とデジタルGPIOへのアクセスを提供します。このデバイスでは、スイッチ、ポテンショメーター、光依存性抵抗などのセンサーデータを受信し、Liveパラメーター値をLEDやサーボモーターに送信します。
+
+
+*littleBits*
+$Link 詳細 <http://github.com/Ableton/m4l-connection-kit/blob/master/littleBits/README.md>
+
+このデバイスは、USB経由でシリアルポートを使用してlittleBits ArduinoモジュールをLiveに接続し、アナログ入力とデジタル出力へのアクセスを提供します。このデバイスでは、スイッチ、ポテンショメーター、光センサーなどのセンサーデータを受信し、Liveパラメーター値をLEDやその他のモジュールに送信します。このデバイスはArduino Maxデバイスに似ていますが、より多くの入力と出力を使用できます。
+
+
+*LEGO® MINDSTORMS® EV3*
+$Link 詳細 <http://github.com/Ableton/m4l-connection-kit/blob/master/LEGO%20MINDSTORMS%20EV3/README.md>
+
+このデバイスは、Bluetooth接続を使用してレゴ マインドストームEV3ブロックをLiveに接続し、センサー入力およびモーターにアクセスできます。このデバイスはセンサーのデータを受信してLiveのパラメーターをコントロールし、Liveからレゴ マインドストームのモーターへトリガーイベントを使用してメッセージを送信します。
+
+その他のPackはこちらからご覧いただけます。
+$Link www.ableton.com/packs <http://www.ableton.com/packs>
+
+$Comment Status: Translate
+$Comment Translation Status: Up-to-date

@@ -1,0 +1,30 @@
+$Page Singularities
+AC_Singularities_260x260.png
+
+*Welcome to Singularities.*
+
+This Pack is a project of Ableton’s lead sound designer, Huston Singletary, the brain behind a lot of the tweakable instruments, clips and other sounds in Live 10. He put the same attention to detail into making Singularities something that’s both true to a musical aesthetic and easily malleable.
+
+*Sampling the classic way*
+
+The gear list for this Pack contains many of the legendary synths that defined that brilliant 80s sound. There are 40 Simpler-based Instrument Racks built from them, with bass, pads, leads and keys, each with eight Macros that give diverse options for sound-shaping. 
+
+But the approach to capturing these classics went beyond the norm. All 40 Simpler/Sampler instruments were made using a single sample – the same approach as classic samplers, which offered a signature sound based on single-sample playback. The effect is a somewhat rawer and more digital sound that cuts through the mix quite nicely. 
+
+*Playable and authentic*
+
+Aside from the audible impact, the presets are very lightweight in terms of load time and CPU usage. Yet they still feel very satisfying and realistic to play. It’s thanks to the care and expertise that’s gone into recreating the playability of all those vintage synths and samplers – fine-tuning parameters like velocity, keytracking and filter envelopes to respond in a similar way to classic hardware.
+
+*Built on experience*
+
+Huston has 25 years of experience as sound designer and musician with the industry’s leading synth manufacturers – so a deep understanding of what makes synths tick has gone into the development. It’s subtle and often-overlooked interactions with filters, envelopes and other fundamental effects that so often define sonic characteristics – Huston has worked with just about every synth you can name, and knows how to recreate their essence in the software domain.
+
+
+You can check out demos and tutorials with the sounds on $Link Huston’s Instagram <http://www.instagram.com/huston.singletary/>.
+
+Divider.tif
+
+More Packs available here:
+$Link www.ableton.com/packs <http://www.ableton.com/packs>
+
+$Comment Status: Translate

@@ -1,0 +1,253 @@
+$Page Creative Extensions
+$TargetName CreativeExtensions
+Creative_Extensions-260x260.png
+
+*Bienvenido/a a Creative Extensions*
+
+Todo un esfuerzo de colaboración entre Ableton y $Link Amazing Noises <http://www.amazingnoises.com>, Creative Extensions consta de herramientas diseñadas para mejorar y ampliar la pegada, el color y textura que puede conseguir con Live. Esta colección incluye nuevas formas de realizar cambios de tono y secuencias melodías y delays, Procesamiento de estudio, creativo y con carácter, un dispositivo que crea espacios etéreos, muy parecidos a una reverb y dos sintes Max for Live renovados.
+
+Haga clic en los siguientes enlaces para saber más sobre cada uno de los dispositivos.
+
+*Efectos MIDI*
+-> $Link Melodic Steps <GotoPage:MelodicSteps>
+
+*Efectos de audio*
+-> $Link Pitch Hack <GotoPage:PitchHack>
+-> $Link Gated Delay <GotoPage:GatedDelay>
+-> $Link Color Limiter <GotoPage:ColorLimiter>
+-> $Link Re-Enveloper <GotoPage:Re-Enveloper>
+-> $Link Spectral Blur <GotoPage:SpectralBlur>
+
+*Instrumentos*
+-> $Link Bass <GotoPage:Bass>
+-> $Link Poli <GotoPage:Poli>
+
+Divider.tif
+
+Más Packs disponibles aquí:
+$Link www.ableton.com/packs <http://www.ableton.com/packs>
+
+
+$Comment --------------------------------------------------------------------------------
+$Page Melodic Steps
+$TargetName MelodicSteps
+
+Melodic_Steps_Crop.png
+
+*Melodic Steps* es un secuenciador MIDI rápido e intuitivo que genera melodías que van evolucionando, con sólo unos pocos clics. Úselo para crear rápidas variaciones y patrones polimétricos, o simplemente aplique aleatoriedad a sus resultados.
+
+El interfaz ha sido diseñado para jugar con él, animando a la experimentación y a conseguir nuevos descubrimientos. No se muestra ningún valor numérico para los pasos. En vez de esto, la idea es jugar de forma intuitiva con sus controles, en oposición a hacer música con números.
+
+Es posible modificar los pasos o bien directamente mediante clic + arrastrar, o usando los botones random y reset disponibles para cada línea temporal. Una función a destacar es la habilidad de desfasar las duraciones de las distintas líneas temporales (de 2 a 16 pasos), de forma que cada repetición suene ligeramente distinta por cómo estas se superponen. Es posible volver a sincronizar las líneas temporales en cualquier momento con el botón Re-Sync.
+
+El secuenciador normalmente sigue al control de transporte, y es posible usar una entrada de nota MIDI para cambiar la nota raíz en tiempo real. Cuando el botón “MIDI” está activo, el secuenciador sólo reproducirá las líneas temporales mientras se mantenga un mensaje de nota, haciendo de esta forma que el dispositivo funcione como un arpegiador básico.
+
+El control de las líneas temporales:
+
+-> Octave: Transpone el paso en +/- 3 octavas
+-> Transpose: Transpone el paso a lo largo de la escala seleccionada en el selector Scale and Root
+-> Length: Duración del paso
+-> Velocity: Velocidad del paso
+-> Chance: Ajusta la probabilidad de que un paso se reproduzca
+
+Divider.tif
+
+Next page: $Link Pitch Hack <GotoPage:PitchHack>
+Regresar a $Link Creative Extensions <GotoPage:CreativeExtensions>
+
+
+$Comment --------------------------------------------------------------------------------
+$Page PitchHack
+$TargetName PitchHack
+
+Pitch_Hack.png
+
+*Pitch Hack* es un dispositivo integral para varios efectos relacionados con el tono. En el fondo, Pitch Hack es una única línea de retardo con control de transposición tanto en semitonos como en centésimas. Además de alterar la altura tonal de la señal entrante en tiempo real, Pitch Hack puede invertir el audio, fijar de forma aleatoria el intervalo de transposición y reincorporar la señal retardada a la línea de retardo.
+
+-> Interval: Transposición en semitonos del segmento retardado
+-> Fine: Transposición de precisión del segmento retardado en centésimas
+-> Var: Variación aleatoria de la transposición del intervalo. Se elige un valor aleatorio entre 0 y este parámetro para cada segmento de la transposición (véase Rate)
+-> Rate: Duración de los segmentos de la señal transpuesta
+-> Reverse: Probabilidad de que un segmento se reproduzca a la inversa
+-> Recycle: Cantidad de señal transpuesta que se reenvía a la línea de retardo
+-> Level: Ganancia de la línea de retardo
+
+Divider.tif
+
+Página siguiente: $Link Gated Delay <GotoPage:GatedDelay>
+Regresar a $Link Creative Extensions <GotoPage:CreativeExtensions>
+
+
+$Comment --------------------------------------------------------------------------------
+$Page Gated Delay
+$TargetName GatedDelay
+
+Gated_Delay.png
+
+*Gated Delay* crea efectos de delay secuenciados. Un secuenciador de puerta envía la señal entrante a una línea de retardo sobre pasos activados. Esto es como un efecto de envío que se activa y se apaga a un ritmo definido sincronizado con la música.
+
+Los controles le permite ajustar la duración y frecuencia de los pasos, si la señal sin procesar será audible en los pasos desactivados, el ratio de la frecuencia de delay con respecto a la frecuencia de pasos, aleatoriedad de pasos, retroalimentación y más.
+
+-> Steps: Duración de la secuencia de puerta
+-> Rate: Frecuencia de la Secuencia de puerta en valores de notas
+-> Smooth: Tiempo de fundido de entrada/salida en milisegundos de cuando la puerta se abre o se cierra
+-> Delay: Tiempo de Delay relativo a la duración del paso. Cuando es 1, el  delay tiene la misma duración del paso, cuando es 2 es el doble del paso, cuando es 1/2 es la mitad del paso y así sucesivamente
+-> Random: Variación aleatoria del tiempo de retardo
+-> Feedback: Cantidad de retroalimentación
+-> Conmutador Insert/Gate: En el modo Insert la salida sin procesar está activa cuando la puerta está en OFF, en el modo Gate la salida sin procesar se muda cuando la puerta está en OFF
+-> Delay Vol: Ganancia de la línea de retardo
+
+Divider.tif
+
+Página siguiente: $Link Color Limiter <GotoPage:ColorLimiter>
+Regresar a $Link Creative Extensions <GotoPage:CreativeExtensions>
+
+
+$Comment --------------------------------------------------------------------------------
+$Page ColorLimiter
+$TargetName ColorLimiter
+
+Color_Limiter.png
+
+*Color Limiter* ofrece un sabor especial de limitador inspirado en los sonidos arenosos que se conseguía con los licitadores hardware. Lleva controles para el nivel de entrada (Loudness), umbral (Ceiling), Lookahead, Liberación y los parámetros de suma importancia Saturation y Color que son la clave de su sonido con mucho carácter.
+
+-> Loudness: Nivel de entrada
+-> Ceiling: Nivel de umbral
+-> Release: Ajusta el tiempo que necesita el limitador para regresar a la amplitud completa cuando el sonido de entrada baja por debajo del umbral (Ceiling).
+-> Saturation: Realza todavía más el volumen de salida y genera distorsión
+-> Color: Respuesta en frecuencia de la saturación. Los valores bajos producen sonidos más oscuros
+-> Lookahead: Ajusta el tiempo que se le da al imitador para conocer la trayectoria del sonido por adelantado y modificar la amplitud en consecuencia
+
+Divider.tif
+
+Página siguiente: $Link Re-Enveloper <GotoPage:Re-Enveloper>
+Regresar a $Link Creative Extensions <GotoPage:CreativeExtensions>
+
+
+$Comment --------------------------------------------------------------------------------
+$Page Re-Enveloper
+$TargetName Re-Enveloper
+
+Re-Enveloper.png
+
+*Re-Enveloper* es un procesador de envolvente multibanda. La señal de entrada primero se divide en tres bandas de frecuencia ajustables. A continuación, se impone una envolvente sobre cada banda, que puede comprimirse o expandirse.
+
+-> Freq1: Primera división de frecuencia para las tres bandas. La banda de graves está entre 0 Hz y Freq1, la banda de medio está entre Freq1 y Freq2
+-> Freq2: Segunda división de frecuencia para las tres bandas. La banda de medios está entre la Freq1 y la Freq2, la banda alta está por encima de la Freq2
+
+Parámetros para cada banda:
+
+-> On/Off: Conmuta la activación/desactivación de la banda
+-> Vol: Volumen
+-> Attack: Capacidad de respuesta cuando la envolvente está ascendiendo
+-> Release: Capacidad de respuesta cuando la envolvente está descendiendo
+-> C/E Factor: Factor del Compresor/Expansor. Con valores positivos la envolvente se comprime (la diferencia entre las partes más relajadas y las más altas disminuye), con valores negativos la envolvente se expande (la diferencia entre las partes más relajadas y las más altas aumenta)
+
+Divider.tif
+
+Página siguiente: $Link Spectral Blur <GotoPage:SpectralBlur>
+Regresar a $Link Creative Extensions <GotoPage:CreativeExtensions>
+
+
+$Comment --------------------------------------------------------------------------------
+$Page Spectral Blur
+$TargetName SpectralBlur
+
+Spectral_Blur.png
+
+*Spectral Blur* crea sonidos y texturas tipo reverb. Un rango de frecuencia definido por el usuario se difumina par crear una densa nube de sonido. Este dispositivo es genial para fuertes efectos de filtrado con anchos de banda estrechos, o para difundir el sonido a lo ancho del espectro completo.
+
+-> Interruptor In/Out: En la posición In, la señal entre Freq1 y Freq2 se procesa. En la posición Out, la señal fuera de Freq1 y Freq2 se procesa
+-> Freq1, Freq2: Ajusta el rango de frecuencia de la señal difuminada, Basado en la configuración del interruptor In/Out
+-> Residual: La amplitud de los componentes no procesados
+-> Interruptor Halo/Freeze: En el modo Freeze, los componentes difuminados se congelan, y el parámetro Halo no tiene ningún efecto
+-> Halo: Ajusta la longitud de los granos difuminados
+-> Delay Comp: Compensación de retardo o Delay para la señal sin procesar, cuando se requiere una perfecta sincronización con la señal procesada
+-> Wet Gain: Volumen de la señal afectada
+
+*Nota:* Spectral Delay dispone de una función de Compensación de Delay para alinear la señal procesada y la señal entrante. Con Delay Compensation ajustado a 1, algunos elementos puede que estén fuera de tiempo, por ejemplo, la automatización de parámetros que quedan después del Spectral Blur con un DC de 1.
+
+Divider.tif
+
+Página siguiente: $Link Bass <GotoPage:Bass>
+Regresar a $Link Creative Extensions <GotoPage:CreativeExtensions>
+
+
+$Comment --------------------------------------------------------------------------------
+$Page Bass
+$TargetName Bass
+
+Bass_Crop.png
+
+*Bass* es un sintetizador virtual analógico, monofónico, que aporta una completa paleta sonora desde los sonidos de bajos profundos y clásicos hasta los fuertemente distorsionados y atronadores.
+
+*Sección de los osciladores*
+
+Hay cuatro osciladores analógicos virtuales distintos: Senoidal, diente de sierra, triángulo y rectángulo, cada uno con controles de volumen independientes. Los dos últimos también ofrecen variación de la anchura de pulso y todos los osciladores pueden desafinarse entre sí usando el control Analog. El botón Tune le permite afinar cada oscilador en +/- 12 semitonos.
+
+El Suboscilador consiste en un único generador de onda senoidal que puede distorsionarse utilizando su parámetro Tone para crear un amplio espectro armónico. Es posible enviar el suboscilador a través de la sección del filtro o evitarla usando el conmutador Thru.
+
+Bass ofrece una sección dedicada para Hard Sync y Ring Modulation, o modulación en anillo, cuyos parámetros se muestran debajo de los osciladores, además de un control adicional para usar envolvente de amplitud para ajustar el tono de Sync o Ring Modulation. La frecuencia de afinación para Sync y Ring Modulation puede ajustarse todavía más usando un único parámetro.
+
+*Sección del filtro*
+
+Bass viene con cinco tipos de filtro distintos. 'LP' y 'LP2' son bastante diferentes en el modo en que modifican la señal, ofreciendo cada uno una característica de conformación del sonido exclusiva. Todos los filtros disponen de los parámetros de Corte del filtro y Resonancia. Cutoff puede modularse usando la envolvente del filtro mediante el dial Filter Env. El parámetro Drive aplica overdrive a la señal antes de que pase por el filtro.
+
+*Modulación*
+
+El LFO ofrece varias formas de onda y un parámetro Fade-in opcional para realizar un fundido de entrada suave de su cantidad cuando se reproduce una nota.
+
+Las dos Envolventes usan formas no lineales. El rango de la porción del Ataque, Decaimiento y Relajación también puede extenderse usando el multiplicador Env Time.
+
+*La sección Master*
+
+La sección Master viene con opciones de afinación gruesa y fina para modificar el tono al vuelo, permitiendo una desafinación desde gruesa a microtonal. Por último, un knob Distortion añade saturación.
+
+Divider.tif
+
+Página siguiente: $Link Poli <GotoPage:Poli>
+Regresar a $Link Creative Extensions <GotoPage:CreativeExtensions>
+
+
+$Comment --------------------------------------------------------------------------------
+$Page Poli
+$TargetName Poli
+
+Poli_Crop.png
+
+*Poli* es un sintetizador virtual analógico de sonido clásico diseñado para acordes y frases polifónicas. Su carácter proviene de sus osciladores con desafinación, una diversa sección de modulación y un chorus incorporado.
+
+*Sección de los osciladores*
+
+La sección de los osciladores contiene cinco generadores de sonido independientes con control de volumen para cada uno. Los osciladores Saw, Pulse y Sub son osciladores analógicos virtuales. El tono de Saw puede ser modulado por la señal del oscilador Pulse usando el control XMod para crear variaciones que van desde lo sutil a los áspero. Sub también es una onda de pulso que se reproduce o bien una o dos octavas por debajo del tono principal y que añade un rico tono de graves.
+
+Ring es un oscilador que crea una señal ejerciendo modulación en anillo sobre el oscilador Pulse con una senoidal de una frecuencia dada que puede ajustarse usando el parámetro Freq y una cantidad de seguimiento de teclado o Key-tracking. El knob Noise añade ruido blanco a la mezcla.
+
+*Sección del filtro*
+
+Todos los osciladores se encaminan a un filtro paso-alto y paso-bajo. El paso-bajo tiene un parámetro Resonance que puede modularse mediante Key-, Velocity- y Aftertouch-tracking para un control de la frecuencia del corte del filtro durante la interpretación.
+
+*Sección de modulación*
+
+En el núcleo de esta sección hay una matriz de modulación con tres fuentes - LFO, Filter Env y Amp Env -, y siete destinos. Solo tienen que hacer clic y arrastrar una entrada en la matriz para aplicar modulación a un destino.
+
+El LFO puede o bien ajustarse para que corra libremente (con redisparo opcional sobre note-on) o sincronizado al transporte de Live. Es posible seleccionar varias formas de onda, y la velocidad del LFO puede incluso modularse con la envolvente del filtro en la matriz.
+
+Las dos envolventes tienen analógicas, no lineales, para una respuesta natural. La envolvente del filtro dispone de un botón Loop adicional, que convierte a la envolvente en un LFO cuya velocidad viene determinada por los ajustes del Ataque y Decaimiento.
+
+*La sección Master*
+
+El Chorus incorporado viene con tres modos. El modo A es un efecto suave y sutil mientras que el B es un clásico chorus de cuerdas. el modo C es un agresivo efecto tipo 'rave' con un carácter peculiar.
+
+Random Pan ajusta la cantidad en que cada nota será panoramizada de forma aleatoria o bien hacia el canal izquierdo o derecho para un efecto estéreo clásico.
+
+El control PBend define hasta que punto una rueda de modulación de tono podrá cambiar el tono del sintetizador. El botón de abajo determina si el estiramiento de tono afecta sólo a la señal de sierra o a todos los osciladores.
+
+La sección Master también contiene un Glide polifónico con un tiempo de glide ajustable entre 0 y dos segundos. Por último, es posible cambiar entre Poly, Mono y Unison con difusión ajustable.
+
+Divider.tif
+
+Regresar a $Link Creative Extensions <GotoPage:CreativeExtensions>
+
+$Comment Status: Translate
+$Comment Translation Status: Up-to-date

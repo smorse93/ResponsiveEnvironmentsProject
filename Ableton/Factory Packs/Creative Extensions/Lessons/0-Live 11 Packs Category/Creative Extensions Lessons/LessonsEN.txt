@@ -1,0 +1,252 @@
+$Page Creative Extensions
+$TargetName CreativeExtensions
+Creative_Extensions-260x260.png
+
+*Welcome to Creative Extensions*
+
+A collaborative effort between Ableton and $Link Amazing Noises <http://www.amazingnoises.com>, Creative Extensions comprises tools designed to enhance and expand the punch, color and texture achievable with Live. This collection includes new ways to pitch-shift and sequence melodies and delays, creative and characterful studio processing, a device that creates ethereal, reverb-like spaces, and two revamped Max for Live synths. 
+
+Click on the following links to learn more about the individual devices.
+
+*MIDI Effects* 
+-> $Link Melodic Steps <GotoPage:MelodicSteps>
+
+*Audio Effects*
+-> $Link Pitch Hack <GotoPage:PitchHack>
+-> $Link Gated Delay <GotoPage:GatedDelay>
+-> $Link Color Limiter <GotoPage:ColorLimiter>
+-> $Link Re-Enveloper <GotoPage:Re-Enveloper>
+-> $Link Spectral Blur <GotoPage:SpectralBlur>
+
+*Instruments* 
+-> $Link Bass <GotoPage:Bass>
+-> $Link Poli <GotoPage:Poli>
+
+Divider.tif
+
+More Packs available here:
+$Link www.ableton.com/packs <http://www.ableton.com/packs>
+
+
+$Comment --------------------------------------------------------------------------------
+$Page Melodic Steps
+$TargetName MelodicSteps
+
+Melodic_Steps_Crop.png
+
+*Melodic Steps* is a fast and intuitive MIDI sequencer that generates evolving melodies with just a few clicks. Use it to create quick variations and polymetric patterns, or simply randomize your results. 
+
+The interface is designed for play, encouraging experimentation and new discoveries. No numeric values are displayed for the steps. instead, the idea is to play intuitively with its controls, as opposed to making music by numbers.
+
+Steps can be tweaked either directly via click + drag, or using the random and reset buttons available for each timeline. A distinctive feat is the ability to offset the various timeline lengths (from 2 to 16 steps), so that each iteration will sound slightly different due to how these overlap. You can resynchronize the timelines any time via the Re-Sync button.
+
+The sequencer normally follows transport, and a MIDI note input can be used to change the root note in real time. When the “MIDI” button is active, the sequencer will instead only play back the timelines as long as a note message is being held, thus making the device work as a basic arpeggiator.
+
+The timelines control: 
+
+-> Octave: Transpose the step +/- 3 octaves
+-> Transpose: Transpose the step along the scale selected in the Scale and Root chooser
+-> Length: Step length
+-> Velocity: Step velocity
+-> Chance: Set the likeliness of a step being played 
+
+Divider.tif
+
+Next page: $Link Pitch Hack <GotoPage:PitchHack>
+Back to $Link Creative Extensions <GotoPage:CreativeExtensions>
+
+
+$Comment --------------------------------------------------------------------------------
+$Page PitchHack
+$TargetName PitchHack
+
+Pitch_Hack.png
+
+*Pitch Hack* is a one-stop device for various pitch-related effects. At its heart, Pitch Hack is a single delay line with transposition control in both semitones and cents. Besides pitching the incoming signal in real time, Pitch Hack can reverse the audio, randomize the transposition interval and fold the delayed signal back into the delay line.
+
+-> Interval: Transposition in semitones of the delayed segment
+-> Fine: Fine transposition of the delayed segment in cents
+-> Var: Random variation of the interval transposition. A random value between 0 and this parameter is chosen for each segment of transposition (see Rate)
+-> Rate: Length of segments of transposed signal
+-> Reverse: Probability for a segment to be played in reverse
+-> Recycle: Amount of transposed signal sent back to the delay line
+-> Level: Gain of the delay line
+
+Divider.tif
+
+Next page: $Link Gated Delay <GotoPage:GatedDelay>
+Back to $Link Creative Extensions <GotoPage:CreativeExtensions>
+
+
+$Comment --------------------------------------------------------------------------------
+$Page Gated Delay
+$TargetName GatedDelay
+
+Gated_Delay.png
+
+*Gated Delay* creates sequenced delay effects. A gate sequencer sends the incoming signal to a delay line on activated steps. This is like a send effect that is turned on and off in a defined rhythm in sync to the music.
+
+Controls allow you to adjust the length and rate of the steps, whether the dry signal is audible on deactivated steps, the ratio of the delay rate to the step rate, step randomization, feedback and more.
+
+-> Steps: Length of the Gate Sequence
+-> Rate: Rate of the Gate Sequence in note values
+-> Smooth: Fade in/fade out time in milliseconds when the gate is opened or closed
+-> Delay: Delay time relative to the step length. When it is 1 , the delay has the same length of the step, when it is 2 is twice the step, when it is 1/2 it is half the step, and so on
+-> Random: Random variation of the delay time
+-> Feedback: Feedback amount
+-> Insert/Gate toggle: In Insert mode the dry output is active when the gate is OFF, in Gate mode the dry output is muted when the gate is OFF
+-> Delay Vol: Gain of the delay line
+
+Divider.tif
+
+Next page: $Link Color Limiter <GotoPage:ColorLimiter>
+Back to $Link Creative Extensions <GotoPage:CreativeExtensions>
+
+
+$Comment --------------------------------------------------------------------------------
+$Page ColorLimiter
+$TargetName ColorLimiter
+
+Color_Limiter.png
+
+*Color Limiter* offers a special flavor of limiting inspired by the gritty sounds achievable with hardware limiters. Controls are provided for input level (Loudness), threshold (Ceiling), Lookahead, Release and the all-important Saturation and Color parameters that are the key to its characterful sound.
+
+-> Loudness: Input level
+-> Ceiling: Threshold level
+-> Release: Set the time the limiter takes to return to the full amplitude when the input sound goes below the threshold (Ceiling).
+-> Saturation: Further boost the output volume and generate distortion
+-> Color: Frequency response of the saturation. Low values produce darker sounds
+-> Lookahead: Set the time the limiter is given to know the sound trajectory in advance and to modify the amplidude accordingly
+
+Divider.tif
+
+Next page: $Link Re-Enveloper <GotoPage:Re-Enveloper>
+Back to $Link Creative Extensions <GotoPage:CreativeExtensions>
+
+
+$Comment --------------------------------------------------------------------------------
+$Page Re-Enveloper
+$TargetName Re-Enveloper
+
+Re-Enveloper.png
+
+*Re-Enveloper* is a multiband envelope processor. The input signal is first divided into three adjustable frequency bands. Then an envelope is imposed on each band, which can be compressed or expanded. 
+
+-> Freq1: First split frequency for the three bands. The low band is between 0 Hz and Freq1, the middle band is between Freq1 and Freq2
+-> Freq2: Second split frequency for the three bands. The middle band is between Freq1 and Freq2, the high band is above Freq2
+
+Parameters for each band: 
+
+-> On/Off: Toggles the band on and off
+-> Vol: Volume
+-> Attack: Responsiveness when the envelope is ascending
+-> Release: Responsiveness when the envelope is descending
+-> C/E Factor: Compressor/Expander factor. With positive values the envelope is compressed (the difference between the softer and the louder parts is diminished), with negative values the envelope is expanded (the difference between the softer and the louder parts is augmented)
+
+Divider.tif
+
+Next page: $Link Spectral Blur <GotoPage:SpectralBlur>
+Back to $Link Creative Extensions <GotoPage:CreativeExtensions>
+
+
+$Comment --------------------------------------------------------------------------------
+$Page Spectral Blur
+$TargetName SpectralBlur
+
+Spectral_Blur.png
+
+*Spectral Blur* creates reverb-like sounds and textures. A user-defined frequency range of a signal is blurred to create a dense cloud of sound. This device is great for sharp filtered effects with narrow bandwidths, or to spread your sound across the whole spectrum.
+
+-> In/Out switch: In the In position, the signal between Freq1 and Freq2 is processed. In the Out position, the signal outside Freq1 and Freq2 is processed
+-> Freq1, Freq2: Set the frequency range of the blurred signal, based on the setting of the In/Out switch
+-> Residual: The amplitude of the unprocessed components
+-> Halo/Freeze switch: In Freeze mode, the blurred components are frozen, and the Halo parameter has no effect
+-> Halo: Sets the length of the blurred grains
+-> Delay Comp: Delay compensation for the dry signal, when perfect synchronization with the processed signal is required
+-> Wet Gain: Volume of the effected signal
+
+*Note:* Spectral Delay has a Delay Compensation feature to align the processed signal and the incoming signal. With Delay Compensation set to 1, some elements may be out of time, for example, automation of parameters that reside after the Spectral Blur with a DC of 1. 
+
+Divider.tif
+
+Next page: $Link Bass <GotoPage:Bass>
+Back to $Link Creative Extensions <GotoPage:CreativeExtensions>
+
+
+$Comment --------------------------------------------------------------------------------
+$Page Bass
+$TargetName Bass
+
+Bass_Crop.png
+
+*Bass* is a virtual analog, monophonic synthesizer that brings the whole sonic palette from deep and classic to heavily distorted, rumbling bass sounds.
+
+*Oscillator Section*
+
+There are four separate virtual analog oscillators: Sine, sawtooth, triangle and rectangle, each with independent volume controls. The latter two also provide varying pulse width, and all oscillators can be detuned against each other using the Analog control. The Tune button lets you tune each oscillator +/- 12 semitones. 
+
+The Suboscillator consists of a single sine wave generator which can be distorted using its Tone parameter to create a wide harmonic spectrum. You can send the suboscillator through the filter section or bypass it using the 'Thru' toggle.
+
+Bass features a dedicated section for Hard Sync and Ring Modulation, whose parameters are shown below the oscillators, plus an additional control for using the amplitude envelope to adjust the pitch of the Sync or Ring modulation. The tuning frequency for Sync and Ring Modulation can be further adjusted by using a single parameter.
+
+*Filter Section*
+
+Bass comes with five different filter types. 'LP' and 'LP2' differ substantially in the way they modify the signal, with each providing a unique sound shaping characteristic. All filters feature Cutoff and Resonance parameters. Cutoff can be modulated using the filter envelope via the Filter Env dial. The Drive parameter overdrives the signal before it is passed to the filter. 
+
+*Modulation*
+
+The LFO offers several waveforms and an optional Fade-in parameter to smoothly fade-in its amount when a note is played. 
+
+The two Envelopes use non-linear shapes. The range of the Attack, Decay, and Release portion may also be extended using the Env Time multiplier.
+
+*Master Section*
+
+The Master section comes with coarse and fine tuning options to modify the pitch on-the-fly, allowing for coarse to microtonal detuning. Finally, a global Distortion knob adds saturation. 
+
+Divider.tif
+
+Next page: $Link Poli <GotoPage:Poli>
+Back to $Link Creative Extensions <GotoPage:CreativeExtensions>
+
+
+$Comment --------------------------------------------------------------------------------
+$Page Poli
+$TargetName Poli
+
+Poli_Crop.png
+
+*Poli* is a classic sounding virtual analog synthesizer designed for chords and polyphonic phrases. Its character comes from detuneable oscillators, a diverse modulation section, and a built-in chorus. 
+
+*Oscillator Section*
+
+The oscillator section contains five individual sound generators with independent volume control. The Saw, Pulse and Sub oscillators are virtual analog. The pitch of the Saw oscillator can be modulated by the Pulse oscillator signal using the XMod control to create subtle to harsh timbral variations. Sub is also a pulse wave, but transposed either one or two octaves below the main pitch and adds a rich bass tone.
+
+Ring is an oscillator that creates a signal by ring modulating the Pulse oscillator with a sine of a given frequency that can be adjusted using the Freq parameter and a Key-tracking amount. The Noise knob adds white noise to the mix.
+ 
+*Filter Section* 
+
+All oscillators are fed into a high pass and a low pass Filter. The low pass has a Resonance parameter and can be modulated via Key-, Velocity- and Aftertouch-tracking for performative control of the filter's cutoff frequency.
+
+*Modulation Section*
+
+At the core of this section is a modulation matrix with three sources - LFO, Filter Env and Amp Env -, and seven targets. Simply click and drag an entry in the matrix to apply modulation to a target. 
+
+The LFO can either be set to free-running (with optional retrigger on note-on) or synced to Live's transport. Several waveforms are selectable, and the LFO rate can be further modulated via the filter envelope in the matrix. 
+
+The two envelopes have analog, non-linear shapes for a natural response. The filter envelope has an additional Loop button, which turns the envelope into an LFO whose rate is determined by the Attack and Decay settings. 
+
+*Master Section* 
+
+The built-in Chorus has three modes. Mode A is a soft and subtle effect, while B is a classic string chorus. Mode C is an aggressive 'rave'-type effect with a distinctive character. 
+
+Random Pan adjusts the amount that each note will be panned randomly either to the right or left channel for a classic stereo effect. 
+
+The PBend control defines how much a pitch bend wheel will be able to change the synthesizer's pitch. The switch beneath determines whether pitch bend affects only the saw signal or all oscillators. 
+
+The master section also contains polyphonic Glide with a glide time adjustable between 0 and two seconds. Lastly, you can switch between Poly, Mono and Unison with adjustable spread. 
+
+Divider.tif
+
+Back to $Link Creative Extensions <GotoPage:CreativeExtensions>
+
+$Comment Status: Translate

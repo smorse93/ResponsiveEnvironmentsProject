@@ -1,0 +1,81 @@
+$Comment --------------------------------------------------------------------------------
+$Page Connection Kit
+$TargetName Connection Kit
+ConnectionKit.png
+
+*Max for Live Connection Kit*
+
+Die Geräte dieses Packs ermöglichen Live mit einer Reihe von Technologien und Kommunikationsprotokollen zu verbinden, zu steuern und zu überwachen. Nutzen Sie LEGO MINDSTORMS oder Arduino, um Sensoren oder Motoren anzuschließen, öffnen Ihre Klangwelten mit JSON-basierten APIs dem Web oder wandeln OSC-Daten in MIDI-Daten um. Connection Kit eröffnet vollkommen neue Eingabe- und Ausgabemöglichkeiten für die Kreation von Musik und Klängen mit Live.
+Die 11 Geräte des Packs liefern einen Experimentierkasten, den Max-Erfahrene in Max for Life an eigene Anforderungen anpassen können. Im Folgenden stellen wir die Geräte kurz vor.
+
+
+*OSC Leap Motion*
+$Link Mehr erfahren... <http://github.com/Ableton/m4l-connection-kit/blob/master/OSC%20Leap%20Motion/README.md>
+
+Dieses Gerät nutzt Leap Motion, um mit Hilfe der ManosOsc-Anwendung MIDI-Noten zu erzeugen. Leap Motion ist ein Hardware-Sensor, der Hand- und Fingerbewegungen in Steuersignale umwandelt, während ManosOsc die Rohdaten des Sensors empfängt und in OSC-Daten umwandelt. Das Gerät wandelt diese OSC-Daten dann in MIDI-Tonhöhe und -Velocity um.
+
+
+*OSC Send*
+$Link Mehr erfahren... <http://github.com/Ableton/m4l-connection-kit/blob/master/OSC%20Send/README.md>
+
+Dieses Gerät ermöglicht Ihnen die Werte beliebiger Live-Elemente als OSC-Daten zu senden. Bei unserem Beispiel senden wir die Werte einiger LFO-gesteuerter Fader und Regler, um einfache, sich bewegende Grafikelemente zu erzeugen.
+
+
+*OSC MIDI Send*
+$Link Mehr erfahren... <http://github.com/Ableton/m4l-connection-kit/blob/master/OSC%20MIDI%20Send/README.md>
+
+Unser Beispiel-Gerät sendet MIDI-Daten als OSC-Messages an einen Processing-Sketch. Wird der Sketch gestartet, zeigt er eine Anzahl virtueller Saiten, die sich Velocity-empfindlich spielen lassen.
+
+
+*OSC TouchOSC*
+$Link Mehr erfahren... <http://github.com/Ableton/m4l-connection-kit/blob/master/OSC%20TouchOSC/README.md>
+
+Das TouchOSC-Gerät erlaubt es, Elementen in Live einen beliebigen Controller aus Ihrem TouchOSC-Layout zuzuweisen, um ihre Werte dann über iPad oder iPhone zu steuern.
+
+
+*OSC Monitor*
+$Link Mehr erfahren... <http://github.com/Ableton/m4l-connection-kit/blob/master/OSC%20Monitor/README.md>
+
+Ein einfacher aber nützlicher OSC-Datenmonitor, der die eingehenden OSC-Messages für einen bestimmten Port anzeigt.
+
+
+*JSON Weather*
+$Link Mehr erfahren... <http://github.com/Ableton/m4l-connection-kit/blob/master/JSON%20Weather/README.md>
+
+Eines von zwei Beispielen, wie sich JSON-Daten aus dem Internet abgreifen lassen und eine Wort-basierte Analyse durchlaufen können, um spezifische Dateninhalte daraus abzufragen. In unserem Beispiel hier werden Wetterdaten abgerufen und angezeigt, die dann in Sound umgewandelt werden.
+
+
+*JSON Video*
+$Link Mehr erfahren... <http://github.com/Ableton/m4l-connection-kit/blob/master/JSON%20Video/README.md>
+
+Dies ist ein zweites Beispiel-Gerät, mit dem Webdaten aus #Ableton-getaggten, geloopten Videos vom Online-Video-Sharing-Service Vine im JSON-Format  abgerufen werden können.
+
+
+*Camera*
+$Link Mehr erfahren... <http://github.com/Ableton/m4l-connection-kit/blob/master/Camera/README.md>
+
+Dieses Gerät überträgt Webcam-Daten an Live und nutzt einfache Bewegungserkennnungs-Algorithmen zur Steuerung beliebig zuweisbarer Live-Parameter.
+
+
+*Arduino*
+$Link Mehr erfahren... <http://github.com/Ableton/m4l-connection-kit/blob/master/Arduino/README.md>
+
+Verbindet ein Arduino Uno mit Live, indem es dessen serielle Schnittstelle über USB nutzt, wodurch der Zugriff auf seine analogen Eingänge und digitalen GPIOs möglich wird. Das Gerät lässt Sie Sensor-Daten von Schaltern, Drehreglern oder lichtempfindlichen Widerständen empfangen und ermöglicht es, Parameter-Werte aus Live an LEDs oder Servo-Motoren zu senden senden.
+
+
+*littleBits*
+$Link Mehr erfahren... <http://github.com/Ableton/m4l-connection-kit/blob/master/littleBits/README.md>
+
+Dieses Gerät verbindet das littleBits Arduino-Modul mit Live, indem es seinen seriellen Port über USB nutzt, wodurch auf seine analogen Eingänge und digitalen Ausgänge zugegriffen werden kann. Das Gerät lässt Sie Sensor-Daten von Schaltern, Drehreglern oder Lichtsensoren empfangen und ermöglicht es, Parameter-Werte aus Live an LEDs oder andere Module zu senden. Das Gerät ähnelt technisch dem Arduino-Max-Gerät, bietet jedoch mehr Eingänge und Ausgänge.
+
+
+*LEGO® MINDSTORMS® EV3*
+$Link Mehr erfahren... <http://github.com/Ableton/m4l-connection-kit/blob/master/LEGO%20MINDSTORMS%20EV3/README.md>
+
+Das Gerät verbindet Live über Bluetooth mit einem EV3-Stein des LEGO MINDSTORMS EV3-Baukastens und ermöglicht so Zugriff auf seine Sensoreingänge und seinen Motor. Es ermöglicht Ihnen Daten von den Sensoren zur Steuerung von Parameter in Live einzusetzen und Befehle aus Live zu den LEGO- MINDSTORMS-Motoren zu senden.
+
+Weitere Packs finden Sie unter:
+$Link www.ableton.com/packs <http://www.ableton.com/packs>
+
+$Comment Status: Translate
+$Comment Translation Status: Up-to-date
