@@ -12,8 +12,7 @@
             "program":"${file}",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
-            "env": {
-                 "PYTHONPATH":"${PYTHONPATH}:/home/maxepstein/myproject/"}
+            "env": { "PYTHONPATH": "${workspaceRoot}"}
         }
     ]
 }
