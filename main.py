@@ -1,5 +1,7 @@
 #annotator stuff
 from __future__ import annotations
+#Not sure why this is causing an error but I commented it out and I have no idea what it is doing at this point 
+# from asyncio.windows_events import NULL
 from dataclasses import dataclass, field
 from typing import Tuple, Optional, List, Dict, Any
 
@@ -7,11 +9,15 @@ from typing import Tuple, Optional, List, Dict, Any
 from operator import index
 import cv2
 import argparse
+from torch import true_divide
 from ultralytics import YOLO
 import supervision as sv
 import numpy as np
+import math
 
-
+import sys
+sys.path.insert(0, './Ableton/User Library/Remote Scripts/AbletonOSC')
+import Ableton
 
 
 #getting ByteTrack and other libs working
@@ -261,12 +267,21 @@ class BaseAnnotator:
             )
         return annotated_image
 
+#centroid finding 
+def centroid (p1_loc, p2_loc):
+    centroid_p1 = np.array([p1_loc[0][2] - p1_loc[0][0],p1_loc[0][3] - p1_loc[0][1]])
+    centroid_p2 = np.array([p2_loc[0][2] - p2_loc[0][0],p2_loc[0][3] - p2_loc[0][1]])
+    return centroid_p1, centroid_p2
+
+#distance
+def distance (centroid_p1, centroid_p2):
+    dist = math.sqrt( ((centroid_p1[0][0]-centroid_p2[0][0])**2) + ((centroid_p1[0][1]-centroid_p2[0][1])**2))
+    return dist
+
+#motion
 
 
 #--------------------- MAIN ----------------------
-
-
-
 def main():
     #getting webcam to run
     args = parse_arguments()
@@ -312,8 +327,16 @@ def main():
     for index
     in range(len(polygons))
     ]
+    
+    #variable definition
+    p1_loc_prev = np.array([[0, 0, 0, 0]])
+    p2_loc_prev = np.array([[0, 0, 0, 0]])
+    p1_loc = np.array([[0, 0, 0, 0]])
+    p2_loc = np.array([[0, 0, 0, 0]])
 
-
+    #call file to talk with Ableton
+    Ableton.main()
+    
     while True:
         #read the current frame
         ret, frame = cap.read()
@@ -326,7 +349,9 @@ def main():
         #limit detections to mask area, class id people, and confidence >0.5 
         detections = detections[(detections.class_id == 0) & (detections.confidence > 0.5)]
         a = 0
-    
+        p1_detect = False
+        p2_detect = False
+        
         #for loop
         for zone, zone_annotator, box_annotator in zip(zones, zone_annotators, box_annotators):
             mask = zone.trigger(detections=detections)
@@ -335,16 +360,44 @@ def main():
             frame = zone_annotator.annotate(scene=frame)
             print(f'index: {a}')
             print(detections_filtered.xyxy)
+        
             if detections_filtered.xyxy.any():
+                #assign p1 and p2 
+                if p1_detect == False:
+                    p1_detect = True
+                else: 
+                    p2_detect = True
+
+                #assign p1 and p2 locations
+                if p1_detect == True and p2_detect == False:
+                    p1_loc = detections_filtered.xyxy
+                else: 
+                    p2_loc = detections_filtered.xyxy
+                    
                 print(f'object detected in zone: {a}')
+                
+                
             a = a+1 
 
-            # if detections_filtered > 0:
-            #     print("greater than 0")
+        
+        
+        print(f'p1_detect{p1_detect}')   
+        print(f'p2_detect{p2_detect}')
+        
+        print(f'p1_loc{p1_loc}')
+        print(f'p2_loc{p2_loc}')
+        
+        centroid_p1, centroid_p2 = centroid(p1_loc,p2_loc)
+        print("centroid_p1:")
+        print(centroid_p1)
+        print("centroid_p2:")
+        print(centroid_p2)
 
+        dist
 
-
-
+        dist = distance(p1_loc,p2_loc)
+        print('distance:')
+        print(dist)
 
         #create a dict for all of our labels
         labels = [
@@ -352,7 +405,9 @@ def main():
             for _, confidence, class_id, _
             in detections
         ]  
-        
+        print("labels:")
+        print(labels)
+
         #show the webcam frame that we just framed and annotated
         cv2.imshow("yolov8", frame)
 
@@ -363,3 +418,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
