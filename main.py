@@ -13,7 +13,7 @@ from torch import true_divide
 from ultralytics import YOLO
 import supervision as sv
 import numpy as np
-
+import math
 
 
 
@@ -270,6 +270,13 @@ def centroid (p1_loc, p2_loc):
     centroid_p2 = np.array([p2_loc[0][2] - p2_loc[0][0],p2_loc[0][3] - p2_loc[0][1]])
     return centroid_p1, centroid_p2
 
+#distance
+def distance (centroid_p1, centroid_p2):
+    dist = math.sqrt( ((centroid_p1[0][0]-centroid_p2[0][0])**2) + ((centroid_p1[0][1]-centroid_p2[0][1])**2))
+    return dist
+
+#motion
+
 
 #--------------------- MAIN ----------------------
 def main():
@@ -317,10 +324,15 @@ def main():
     for index
     in range(len(polygons))
     ]
+    
+    #variable definition
+    p1_loc_prev = np.array([[0, 0, 0, 0]])
+    p2_loc_prev = np.array([[0, 0, 0, 0]])
     p1_loc = np.array([[0, 0, 0, 0]])
     p2_loc = np.array([[0, 0, 0, 0]])
-    
 
+    
+    
     while True:
         #read the current frame
         ret, frame = cap.read()
@@ -376,6 +388,12 @@ def main():
         print(centroid_p1)
         print("centroid_p2:")
         print(centroid_p2)
+
+        dist
+
+        dist = distance(p1_loc,p2_loc)
+        print('distance:')
+        print(dist)
 
         #create a dict for all of our labels
         labels = [
