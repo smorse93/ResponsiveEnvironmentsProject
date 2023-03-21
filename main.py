@@ -15,6 +15,9 @@ import supervision as sv
 import numpy as np
 import math
 
+import sys
+sys.path.insert(0, './Ableton/User Library/Remote Scripts/AbletonOSC')
+import Ableton
 
 
 #getting ByteTrack and other libs working
@@ -331,7 +334,8 @@ def main():
     p1_loc = np.array([[0, 0, 0, 0]])
     p2_loc = np.array([[0, 0, 0, 0]])
 
-    
+    #call file to talk with Ableton
+    Ableton.main()
     
     while True:
         #read the current frame
