@@ -17,7 +17,7 @@ import math
 
 import sys
 sys.path.insert(0, './Ableton/User Library/Remote Scripts/AbletonOSC')
-import Ableton
+import AbletonTest
 
 
 #getting ByteTrack and other libs working
@@ -333,9 +333,20 @@ def main():
     p2_loc_prev = np.array([[0, 0, 0, 0]])
     p1_loc = np.array([[0, 0, 0, 0]])
     p2_loc = np.array([[0, 0, 0, 0]])
+   
 
-    #call file to talk with Ableton
-    Ableton.main()
+    ########################################################
+    ########################################################
+    
+    #DO SOMETHING WITH ABLETONTEST
+    #ex --> command_str = "/live/song/set/tempo 123.0"
+    #ex --> command_str = "/live/song/set/tempo 124.0"
+    
+    AbletonTest.doSomething("/live/song/set/tempo 100.0")
+    
+    ########################################################
+    ########################################################
+    
     
     while True:
         #read the current frame
@@ -393,8 +404,6 @@ def main():
         print("centroid_p2:")
         print(centroid_p2)
 
-        dist
-
         dist = distance(p1_loc,p2_loc)
         print('distance:')
         print(dist)
@@ -418,6 +427,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
