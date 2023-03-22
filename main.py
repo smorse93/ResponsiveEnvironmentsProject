@@ -1,7 +1,5 @@
 #annotator stuff
 from __future__ import annotations
-#Not sure why this is causing an error but I commented it out and I have no idea what it is doing at this point 
-# from asyncio.windows_events import NULL
 from dataclasses import dataclass, field
 from typing import Tuple, Optional, List, Dict, Any
 
@@ -9,7 +7,7 @@ from typing import Tuple, Optional, List, Dict, Any
 from operator import index
 import cv2
 import argparse
-from torch import true_divide
+#from torch import true_divide
 from ultralytics import YOLO
 import supervision as sv
 import numpy as np
@@ -354,7 +352,7 @@ def main():
     #ex --> command_str = "/live/song/set/tempo 123.0"
     #ex --> command_str = "/live/song/set/tempo 124.0"
     
-    AbletonTest.doSomething("/live/song/set/tempo 100.0")
+#    AbletonTest.doSomething("/live/song/set/tempo 150.0")
     
     ########################################################
     ########################################################
@@ -381,8 +379,8 @@ def main():
             detections_filtered = detections[mask]
             frame = box_annotator.annotate(scene=frame, detections=detections_filtered)
             frame = zone_annotator.annotate(scene=frame)
-            print(f'index: {a}')
-            print(detections_filtered.xyxy)
+#            print(f'index: {a}')
+#            print(detections_filtered.xyxy)
         
             if detections_filtered.xyxy.any():
                 #assign p1 and p2 
@@ -397,39 +395,49 @@ def main():
                 else: 
                     p2_loc = detections_filtered.xyxy
                     
-                print(f'object detected in zone: {a}')
+#                print(f'object detected in zone: {a}')
                 
                 
             a = a+1 
 
         
         
-        print(f'p1_detect{p1_detect}')   
-        print(f'p2_detect{p2_detect}')
+#        print(f'p1_detect{p1_detect}')   
+#        print(f'p2_detect{p2_detect}')
         
-        print(f'p1_loc{p1_loc}')
-        print(f'p2_loc{p2_loc}')
+#        print(f'p1_loc{p1_loc}')
+#        print(f'p2_loc{p2_loc}')
 
         if (centroid_p1 is not None):
             centroid_p1_prev = centroid_p1
             centroid_p2_prev = centroid_p2
 
         centroid_p1, centroid_p2 = centroid(p1_loc,p2_loc)
-        print("centroid_p1:")
-        print(centroid_p1)
-        print("centroid_p2:")
-        print(centroid_p2)
+#        print("centroid_p1:")
+#        print(centroid_p1)
+#        print("centroid_p2:")
+#        print(centroid_p2)
 
         dist = distance(p1_loc,p2_loc)
         print('distance:')
         print(dist)
+        
+        if (dist < 200):
+            AbletonTest.doSomething("/live/song/set/tempo 80.0")
+        elif dist < 400:
+            AbletonTest.doSomething("/live/song/set/tempo 100.0")
+        elif dist < 600:
+            AbletonTest.doSomething("/live/song/set/tempo 120.0")
+        else:
+            AbletonTest.doSomething("/live/song/set/tempo 140.0")
+            
 
         if (centroid_p1_prev is not None):
             motion_p1, motion_p2 = motion(centroid_p1, centroid_p1_prev, centroid_p2, centroid_p2_prev)
-            print("motion_p1:")
-            print(motion_p1)
-            print("motion_p2:")
-            print(motion_p2)
+#            print("motion_p1:")
+#            print(motion_p1)
+#            print("motion_p2:")
+#            print(motion_p2)
 
 
         #create a dict for all of our labels
@@ -438,8 +446,8 @@ def main():
             for _, confidence, class_id, _
             in detections
         ]  
-        print("labels:")
-        print(labels)
+#        print("labels:")
+#        print(labels)
 
         #show the webcam frame that we just framed and annotated
         cv2.imshow("yolov8", frame)
@@ -447,7 +455,6 @@ def main():
         #break out it we esc
         if (cv2.waitKey(30) == 27):
             break
-
 
 if __name__ == "__main__":
     main()
