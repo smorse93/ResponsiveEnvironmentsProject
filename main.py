@@ -279,7 +279,17 @@ def distance (centroid_p1, centroid_p2):
     return dist
 
 #motion
+def motion (centroid_p1, centroid_p1_prev, centroid_p2, centroid_p2_prev):
+    #get distance change between frames
+    
+    motionp1 = math.sqrt( ((centroid_p1[0]-centroid_p1_prev[0])**2) + ((centroid_p1[1]-centroid_p1_prev[1])**2))
+    motionp2 = math.sqrt( ((centroid_p2[0]-centroid_p2_prev[0])**2) + ((centroid_p2[1]-centroid_p2_prev[1])**2))
+    
+    #normalize to a useable range
+    normMotionp1 = (motionp1/500)*10
+    normMotionp2 = (motionp2/500)*10
 
+    return normMotionp1, normMotionp2
 
 #--------------------- MAIN ----------------------
 def main():
@@ -329,11 +339,13 @@ def main():
     ]
     
     #variable definition
-    p1_loc_prev = np.array([[0, 0, 0, 0]])
-    p2_loc_prev = np.array([[0, 0, 0, 0]])
     p1_loc = np.array([[0, 0, 0, 0]])
     p2_loc = np.array([[0, 0, 0, 0]])
-   
+    centroid_p1 = None
+    centroid_p2 = None
+    centroid_p1_prev = None
+    centroid_p2_prev = None
+      
 
     ########################################################
     ########################################################
@@ -397,7 +409,11 @@ def main():
         
         print(f'p1_loc{p1_loc}')
         print(f'p2_loc{p2_loc}')
-        
+
+        if (centroid_p1 is not None):
+            centroid_p1_prev = centroid_p1
+            centroid_p2_prev = centroid_p2
+
         centroid_p1, centroid_p2 = centroid(p1_loc,p2_loc)
         print("centroid_p1:")
         print(centroid_p1)
@@ -407,6 +423,14 @@ def main():
         dist = distance(p1_loc,p2_loc)
         print('distance:')
         print(dist)
+
+        if (centroid_p1_prev is not None):
+            motion_p1, motion_p2 = motion(centroid_p1, centroid_p1_prev, centroid_p2, centroid_p2_prev)
+            print("motion_p1:")
+            print(motion_p1)
+            print("motion_p2:")
+            print(motion_p2)
+
 
         #create a dict for all of our labels
         labels = [
