@@ -265,10 +265,19 @@ class BaseAnnotator:
             )
         return annotated_image
 
-#centroid finding 
+#area of bounding box
+def area (p1_loc, p2_loc):
+    area_p1 = np.array(abs(p1_loc[0][2] - p1_loc[0][0])*abs(p1_loc[0][3] - p1_loc[0][1]))
+    area_p2 = np.array(abs(p2_loc[0][2] - p2_loc[0][0])*abs(p2_loc[0][3] - p2_loc[0][1]))
+    return area_p1, area_p2
+
+
+#centroid finding ---THis is incorrect 
 def centroid (p1_loc, p2_loc):
-    centroid_p1 = np.array([p1_loc[0][2] - p1_loc[0][0],p1_loc[0][3] - p1_loc[0][1]])
-    centroid_p2 = np.array([p2_loc[0][2] - p2_loc[0][0],p2_loc[0][3] - p2_loc[0][1]])
+    diff_xy_p1 = np.array([p1_loc[0][2] - p1_loc[0][0],p1_loc[0][3] - p1_loc[0][1]])
+    diff_xy_p2 = np.array([p2_loc[0][2] - p2_loc[0][0],p2_loc[0][3] - p2_loc[0][1]])
+    centroid_p1 = np.array([(p1_loc[0][0]+diff_xy_p1[0]), (p1_loc[0][1]+diff_xy_p1[1])])
+    centroid_p2 = np.array([(p2_loc[0][0]+diff_xy_p2[0]), (p2_loc[0][1]+diff_xy_p2[1])])
     return centroid_p1, centroid_p2
 
 #distance
@@ -402,21 +411,21 @@ def main():
 
         
         
-#        print(f'p1_detect{p1_detect}')   
-#        print(f'p2_detect{p2_detect}')
+        print(f'p1_detect{p1_detect}')   
+        print(f'p2_detect{p2_detect}')
         
-#        print(f'p1_loc{p1_loc}')
-#        print(f'p2_loc{p2_loc}')
+        print(f'p1_loc{p1_loc}')
+        print(f'p2_loc{p2_loc}')
 
         if (centroid_p1 is not None):
             centroid_p1_prev = centroid_p1
             centroid_p2_prev = centroid_p2
 
         centroid_p1, centroid_p2 = centroid(p1_loc,p2_loc)
-#        print("centroid_p1:")
-#        print(centroid_p1)
-#        print("centroid_p2:")
-#        print(centroid_p2)
+        print("centroid_p1:")
+        print(centroid_p1)
+        print("centroid_p2:")
+        print(centroid_p2)
 
         dist = distance(p1_loc,p2_loc)
         print('distance:')
