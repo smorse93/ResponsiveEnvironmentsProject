@@ -272,8 +272,13 @@ def area (p1_loc, p2_loc):
     area_p2 = np.array(abs(p2_loc[2] - p2_loc[0])*abs(p2_loc[3] - p2_loc[1]))
     return area_p1, area_p2
 
+#Change in bounding box area
+def areaChange (area_p1, area_p2, area_p1_prev, area_p2_prev):
+    area_change_p1 = abs(area_p1 - area_p1_prev)
+    area_change_p2 = abs(area_p2 - area_p2_prev)
+    return area_change_p1, area_change_p2
 
-#centroid finding ---THis is incorrect 
+#centroid finding
 def centroid (p1_loc, p2_loc):
     diff_xy_p1 = np.array([p1_loc[2] - p1_loc[0],p1_loc[3] - p1_loc[1]])
     diff_xy_p2 = np.array([p2_loc[2] - p2_loc[0],p2_loc[3] - p2_loc[1]])
@@ -295,14 +300,12 @@ def distance (centroid_p1, centroid_p2, p2_detect):
 #motion
 def motion (centroid_p1, centroid_p1_prev, centroid_p2, centroid_p2_prev):
     #get distance change between frames
-    
     motionp1 = math.sqrt( ((centroid_p1[0]-centroid_p1_prev[0])**2) + ((centroid_p1[1]-centroid_p1_prev[1])**2))
     motionp2 = math.sqrt( ((centroid_p2[0]-centroid_p2_prev[0])**2) + ((centroid_p2[1]-centroid_p2_prev[1])**2))
     
     #normalize to a useable range
     normMotionp1 = (motionp1/500)*10
     normMotionp2 = (motionp2/500)*10
-
     return normMotionp1, normMotionp2
 
 #--------------------- MAIN ----------------------
@@ -359,6 +362,14 @@ def main():
     centroid_p2 = None
     centroid_p1_prev = None
     centroid_p2_prev = None
+    area_p1 = None
+    area_p2 = None
+    area_p1_prev = None
+    area_p2_prev = None
+    area_p1_prev_prev = None
+    area_p2_prev_prev = None
+    area_change_p1 = None
+    area_change_p2 = None
       
 
     ########################################################
@@ -426,6 +437,35 @@ def main():
         print(f'distance:{dist}')
         print(f'centroid_p1{centroid_p1}')
         print(f'centroid_p2{centroid_p2}')
+
+        #capture previous previous frame area 
+        if (area_p1_prev is not None):
+            area_p1_prev_prev = area_p1_prev
+            area_p2_prev_prev = area_p2_prev
+
+        #capture previous frame area 
+        if (area_p1 is not None):
+            area_p1_prev = area_p1
+            area_p2_prev = area_p2
+        
+        
+        
+        #get area values
+        area_p1, area_p2 = area (p1_loc, p2_loc)
+               
+        #get area change values
+        if (area_p1_prev is not None):
+            area_change_p1, area_change_p2 = areaChange(area_p1, area_p2, area_p1_prev, area_p2_prev)
+
+        print(f'area_p1: {area_p1}')
+        print(f'area_p2: {area_p2}')
+        print(f'area_p1_change: {area_change_p1}')
+        print(f'area_p2_change: {area_change_p2}')
+
+        #dancing vs not dancing metric will need to be calculated here
+            #take past three area changes and do average the change in area over the time
+            #get a scale from 1 to 3 value or somethign of this - not super clear yet
+
 
         #Annotations for boxes - We don't actually need this except for the visual component
         for zone, zone_annotator, box_annotator in zip(zones, zone_annotators, box_annotators):
