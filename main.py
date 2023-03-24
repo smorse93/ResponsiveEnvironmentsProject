@@ -7,6 +7,7 @@ from typing import Tuple, Optional, List, Dict, Any
 from operator import index
 import cv2
 import argparse
+from pyparsing import results
 #from torch import true_divide
 from ultralytics import YOLO
 import supervision as sv
@@ -267,22 +268,28 @@ class BaseAnnotator:
 
 #area of bounding box
 def area (p1_loc, p2_loc):
-    area_p1 = np.array(abs(p1_loc[0][2] - p1_loc[0][0])*abs(p1_loc[0][3] - p1_loc[0][1]))
-    area_p2 = np.array(abs(p2_loc[0][2] - p2_loc[0][0])*abs(p2_loc[0][3] - p2_loc[0][1]))
+    area_p1 = np.array(abs(p1_loc[2] - p1_loc[0])*abs(p1_loc[3] - p1_loc[1]))
+    area_p2 = np.array(abs(p2_loc[2] - p2_loc[0])*abs(p2_loc[3] - p2_loc[1]))
     return area_p1, area_p2
 
 
 #centroid finding ---THis is incorrect 
 def centroid (p1_loc, p2_loc):
-    diff_xy_p1 = np.array([p1_loc[0][2] - p1_loc[0][0],p1_loc[0][3] - p1_loc[0][1]])
-    diff_xy_p2 = np.array([p2_loc[0][2] - p2_loc[0][0],p2_loc[0][3] - p2_loc[0][1]])
-    centroid_p1 = np.array([(p1_loc[0][0]+diff_xy_p1[0]), (p1_loc[0][1]+diff_xy_p1[1])])
-    centroid_p2 = np.array([(p2_loc[0][0]+diff_xy_p2[0]), (p2_loc[0][1]+diff_xy_p2[1])])
+    diff_xy_p1 = np.array([p1_loc[2] - p1_loc[0],p1_loc[3] - p1_loc[1]])
+    diff_xy_p2 = np.array([p2_loc[2] - p2_loc[0],p2_loc[3] - p2_loc[1]])
+    print('diff_xy')
+    print(diff_xy_p1)
+    print(diff_xy_p2)
+    centroid_p1 = np.array([(p1_loc[0]+(diff_xy_p1[0]/2)), (p1_loc[1]+(diff_xy_p1[1]/2))])
+    centroid_p2 = np.array([(p2_loc[0]+ (diff_xy_p2[0]/2)), (p2_loc[1]+(diff_xy_p2[1]/2))])
     return centroid_p1, centroid_p2
 
 #distance
-def distance (centroid_p1, centroid_p2):
-    dist = math.sqrt( ((centroid_p1[0][0]-centroid_p2[0][0])**2) + ((centroid_p1[0][1]-centroid_p2[0][1])**2))
+def distance (centroid_p1, centroid_p2, p2_detect):
+    if p2_detect == True:
+        dist = math.sqrt( ((centroid_p1[0]-centroid_p2[0])**2) + ((centroid_p1[1]-centroid_p2[1])**2))
+    else:
+        dist = 1000
     return dist
 
 #motion
@@ -346,8 +353,8 @@ def main():
     ]
     
     #variable definition
-    p1_loc = np.array([[0, 0, 0, 0]])
-    p2_loc = np.array([[0, 0, 0, 0]])
+    p1_loc = np.array([0, 0, 0, 0])
+    p2_loc = np.array([0, 0, 0, 0])
     centroid_p1 = None
     centroid_p2 = None
     centroid_p1_prev = None
@@ -373,64 +380,68 @@ def main():
 
         #put frame into model
         result = model(frame, agnostic_nms=True)[0]
+
         #get detections using the model
         detections = sv.Detections.from_yolov8(result)
        
         #limit detections to mask area, class id people, and confidence >0.5 
         detections = detections[(detections.class_id == 0) & (detections.confidence > 0.5)]
-        a = 0
+        
+        #reset p1 and p2
         p1_detect = False
         p2_detect = False
         
-        #for loop
+        #set values for p1_loc and p2_loc
+        if detections.xyxy.any():
+            p1_loc = detections.xyxy[0]
+            p1_detect = True
+            
+            if len(detections.xyxy) >= 2:
+                p2_loc = detections.xyxy[1]      
+                p2_detect = True
+        
+        print(f'detections{detections.xyxy}')
+        print(f'p1_detect{p1_detect}')   
+        print(f'p2_detect{p2_detect}')
+        print(f'p1_loc{p1_loc}')
+        print(f'p2_loc{p2_loc}')
+
+        #capture prior position of people 
+        if (centroid_p1 is not None):
+            centroid_p1_prev = centroid_p1
+            centroid_p2_prev = centroid_p2
+
+        #getcurrent centroids
+        centroid_p1, centroid_p2 = centroid(p1_loc,p2_loc)
+
+        #get the distance between people
+        dist = distance(p1_loc,p2_loc, p2_detect)
+
+        #get the distance covered by a single person between two frames (speed)
+        if (centroid_p1_prev is not None):
+                motion_p1, motion_p2 = motion(centroid_p1, centroid_p1_prev, centroid_p2, centroid_p2_prev)
+                print(f'motion_p1: {motion_p1}')
+                print(f'motion_p2: {motion_p2}')
+                
+        print(f'distance:{dist}')
+        print(f'centroid_p1{centroid_p1}')
+        print(f'centroid_p2{centroid_p2}')
+
+        #Annotations for boxes - We don't actually need this except for the visual component
         for zone, zone_annotator, box_annotator in zip(zones, zone_annotators, box_annotators):
             mask = zone.trigger(detections=detections)
             detections_filtered = detections[mask]
             frame = box_annotator.annotate(scene=frame, detections=detections_filtered)
             frame = zone_annotator.annotate(scene=frame)
-#            print(f'index: {a}')
-#            print(detections_filtered.xyxy)
-        
-            if detections_filtered.xyxy.any():
-                #assign p1 and p2 
-                if p1_detect == False:
-                    p1_detect = True
-                else: 
-                    p2_detect = True
 
-                #assign p1 and p2 locations
-                if p1_detect == True and p2_detect == False:
-                    p1_loc = detections_filtered.xyxy
-                else: 
-                    p2_loc = detections_filtered.xyxy
-                    
-#                print(f'object detected in zone: {a}')
-                
-                
-            a = a+1 
-
+        #create a dict for all of our labels
+        labels = [
+            f"{model.model.names[class_id]} {confidence:0.2f}"
+            for _, confidence, class_id, _
+            in detections
+        ]  
         
-        
-        print(f'p1_detect{p1_detect}')   
-        print(f'p2_detect{p2_detect}')
-        
-        print(f'p1_loc{p1_loc}')
-        print(f'p2_loc{p2_loc}')
-
-        if (centroid_p1 is not None):
-            centroid_p1_prev = centroid_p1
-            centroid_p2_prev = centroid_p2
-
-        centroid_p1, centroid_p2 = centroid(p1_loc,p2_loc)
-        print("centroid_p1:")
-        print(centroid_p1)
-        print("centroid_p2:")
-        print(centroid_p2)
-
-        dist = distance(p1_loc,p2_loc)
-        print('distance:')
-        print(dist)
-        
+        #Ableton testing
         if (dist < 200):
             AbletonTest.doSomething("/live/song/set/tempo 80.0")
         elif dist < 400:
@@ -440,23 +451,6 @@ def main():
         else:
             AbletonTest.doSomething("/live/song/set/tempo 140.0")
             
-
-        if (centroid_p1_prev is not None):
-            motion_p1, motion_p2 = motion(centroid_p1, centroid_p1_prev, centroid_p2, centroid_p2_prev)
-#            print("motion_p1:")
-#            print(motion_p1)
-#            print("motion_p2:")
-#            print(motion_p2)
-
-
-        #create a dict for all of our labels
-        labels = [
-            f"{model.model.names[class_id]} {confidence:0.2f}"
-            for _, confidence, class_id, _
-            in detections
-        ]  
-#        print("labels:")
-#        print(labels)
 
         #show the webcam frame that we just framed and annotated
         cv2.imshow("yolov8", frame)
