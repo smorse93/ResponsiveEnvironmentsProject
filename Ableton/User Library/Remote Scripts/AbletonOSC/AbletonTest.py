@@ -33,15 +33,19 @@ client = AbletonOSCClient(args.hostname, args.port)
 
 # This function isn't currently being used, but don't get rid of it
 
-# def main():        
-#     if args.verbose:
-#         client.verbose = True
-#     client.send_message("/live/reload")
+def main():        
+    if args.verbose:
+        client.verbose = True
+    client.send_message("/live/reload")
 
-#     readline.parse_and_bind('tab: complete')
-#     print("AbletonOSC command console")
-#     print("Usage: /live/osc/command [params]")
+    readline.parse_and_bind('tab: complete')
+    print("AbletonOSC command console")
+    print("Usage: /live/osc/command [params]")
     
+def getTempo(command):
+    
+    bpm = client.query("/live/song/get/tempo")
+    return bpm[0]
 
 def doSomething(command):
     
@@ -70,4 +74,4 @@ def doSomething(command):
 
 
 if __name__ == "__main__":
-    main(args)
+    main()

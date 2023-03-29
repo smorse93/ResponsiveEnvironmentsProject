@@ -370,20 +370,29 @@ def main():
     area_p2_prev_prev = None
     area_change_p1 = None
     area_change_p2 = None
+    motion_p1 = 0.0
+    motion_p2 = 0.0
       
-
+    ########################################################
     ########################################################
     ########################################################
     
-    #DO SOMETHING WITH ABLETONTEST
+    # START ABLETON TRACK
     #ex --> command_str = "/live/song/set/tempo 123.0"
     #ex --> command_str = "/live/song/set/tempo 124.0"
     
-#    AbletonTest.doSomething("/live/song/set/tempo 150.0")
+    AbletonTest.doSomething("/live/song/start_playing") #start song
+    # tempo = client.query("/live/song/get/tempo")
+    #print("Got song tempo: %.1f" % tempo[0])
+    bpm = (AbletonTest.getTempo("/live/song/get/tempo_bpm"))
+    print("BPM: ",bpm)
+    bpmLowerLimit = bpm - 30.0
+    bpmUpperLimit = bpm + 30.0
     
     ########################################################
     ########################################################
-    
+    ########################################################
+
     
     while True:
         #read the current frame
@@ -481,15 +490,54 @@ def main():
             in detections
         ]  
         
+        
+        ###################################
+        ###################################
+        ###################################
         #Ableton testing
-        if (dist < 200):
-            AbletonTest.doSomething("/live/song/set/tempo 80.0")
-        elif dist < 400:
-            AbletonTest.doSomething("/live/song/set/tempo 100.0")
-        elif dist < 600:
-            AbletonTest.doSomething("/live/song/set/tempo 120.0")
+                
+        #1. proximity -> volume 
+        if (p1_detect and p2_detect):
+            # volume ranges from 0.0 (minimum) - to 1.0 (maxiumum)
+            if (dist < 200):
+                AbletonTest.doSomething("/live/track/set/volume 0 .75")
+            elif (dist < 400):
+                AbletonTest.doSomething("/live/track/set/volume 0 .50")
+            elif (dist < 600):
+                AbletonTest.doSomething("/live/track/set/volume 0 .25")
+            elif (dist >= 600):
+                AbletonTest.doSomething("/live/track/set/volume 0 .0")
+        elif ((p1_detect and not p2_detect) or (not p1_detect and p2_detect)):
+            AbletonTest.doSomething("/live/track/set/volume 0 .75")
         else:
-            AbletonTest.doSomething("/live/song/set/tempo 140.0")
+            AbletonTest.doSomething("/live/track/set/volume 0 .75")
+            
+        #2. collective movement -> BPM 
+        if ((motion_p1 + motion_p2) < .04 and bpm > bpmLowerLimit):
+            bpm -= 10.0
+            AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
+        elif ((motion_p1 + motion_p2) < .08 and bpm > bpmLowerLimit):
+            bpm -= 5.0
+            AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
+        elif ((motion_p1 + motion_p2) < .12):
+            #do nothing
+            bpm += 0.0
+        elif ((motion_p1 + motion_p2) < .16 and bpm < bpmUpperLimit):
+            bpm += 5.0
+            AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
+        elif ((motion_p1 + motion_p2) < .20 and bpm < bpmUpperLimit):
+            bpm += 10.0
+            AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
+            
+
+        #3. proximity -> volume 
+        #todo
+            
+            
+        ###################################
+        ###################################
+        ###################################
+
             
 
         #show the webcam frame that we just framed and annotated
