@@ -14,6 +14,13 @@ import supervision as sv
 import numpy as np
 import math
 
+import torch
+
+#use the mps device for inference
+
+
+
+
 import sys
 sys.path.insert(0, './Ableton/User Library/Remote Scripts/AbletonOSC')
 import AbletonTest
@@ -314,6 +321,10 @@ def main():
     args = parse_arguments()
     frame_width, frame_height = args.webcam_resolution
 
+    #for uploading a video (you will need to comment out the cap stuff below)
+    #cap = cv2.VideoCapture('test.mp4')
+
+    #for live feed video
     cap = cv2.VideoCapture(0)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, frame_width)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, frame_height)
@@ -389,8 +400,11 @@ def main():
         #read the current frame
         ret, frame = cap.read()
 
-        #put frame into model
-        result = model(frame, agnostic_nms=True)[0]
+        #MPS graphics card line 
+        result = model(frame, agnostic_nms=True, device='mps')[0]
+        
+        #put frame into model - uncomment this for intel
+        #result = model(frame, agnostic_nms=True)[0]
 
         #get detections using the model
         detections = sv.Detections.from_yolov8(result)
