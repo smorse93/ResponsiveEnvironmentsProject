@@ -13,13 +13,7 @@ from ultralytics import YOLO
 import supervision as sv
 import numpy as np
 import math
-
 import torch
-
-#use the mps device for inference
-
-
-
 
 import sys
 sys.path.insert(0, './Ableton/User Library/Remote Scripts/AbletonOSC')
@@ -401,8 +395,9 @@ def main():
         ret, frame = cap.read()
 
         #MPS graphics card line 
-        result = model(frame, agnostic_nms=True, device='mps')[0]
-        
+        #result = model(frame, agnostic_nms=True, device='mps')[0]
+        result = model(frame, device="mps")[0]
+
         #put frame into model - uncomment this for intel
         #result = model(frame, agnostic_nms=True)[0]
 
