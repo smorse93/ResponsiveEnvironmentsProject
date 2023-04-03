@@ -8,12 +8,23 @@ from operator import index
 import cv2
 import argparse
 from pyparsing import results
-#from torch import true_divide
+from torch import true_divide
 from ultralytics import YOLO
 import supervision as sv
 import numpy as np
 import math
 
+<<<<<<< Updated upstream
+=======
+
+import torch
+
+#use the mps device for inference
+print(torch.backends.mps.is_available())
+
+
+
+>>>>>>> Stashed changes
 import sys
 sys.path.insert(0, './Ableton/User Library/Remote Scripts/AbletonOSC')
 import AbletonTest
@@ -398,8 +409,16 @@ def main():
         #read the current frame
         ret, frame = cap.read()
 
+<<<<<<< Updated upstream
         #put frame into model
         result = model(frame, agnostic_nms=True)[0]
+=======
+        #MPS graphics card line 
+        result = model(frame, device='mps')[0]
+        
+        #put frame into model - uncomment this for intel
+        #result = model(frame, agnostic_nms=True)[0]
+>>>>>>> Stashed changes
 
         #get detections using the model
         detections = sv.Detections.from_yolov8(result)
