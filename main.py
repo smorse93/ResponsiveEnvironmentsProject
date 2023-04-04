@@ -42,6 +42,8 @@ class BYTETrackerArgs:
 
 colors = sv.ColorPalette.default()
 
+zoneDefs = np.array([360, 720, 640, 1080])
+
 #create polygons
 polygons = [
     np.array([
@@ -309,6 +311,29 @@ def motion (centroid_p1, centroid_p1_prev, centroid_p2, centroid_p2_prev):
     normMotionp2 = (motionp2/500)*10
     return normMotionp1, normMotionp2
 
+#centroid zones
+def zonesDetect (centroid_p1):
+    
+    #if centroid x coordinate is greater than the x coordinate of the zone, then it is in the zone
+    if centroid_p1[0] > zoneDefs[0]:
+        #we now know in the right half split down the middle vertically
+        if centroid_p1[1] > zoneDefs[2]:
+            #we now know in the bottom half
+            zone_p1 = 4
+        else:
+            #we now know in the top half
+            zone_p1 = 2
+    else:
+        #we now know in the left half split down the middle vertically
+        if centroid_p1[1] > zoneDefs[2]:
+            #we now know in the bottom half
+            zone_p1 = 3
+        else:
+            #we now know in the top half
+            zone_p1 = 1
+
+    return zone_p1
+
 #--------------------- MAIN ----------------------
 def main():
     #getting webcam to run
@@ -484,7 +509,6 @@ def main():
             #take past three area changes and do average the change in area over the time
             #get a scale from 1 to 3 value or somethign of this - not super clear yet
 
-
         #Annotations for boxes - We don't actually need this except for the visual component
         for zone, zone_annotator, box_annotator in zip(zones, zone_annotators, box_annotators):
             mask = zone.trigger(detections=detections)
@@ -539,9 +563,37 @@ def main():
             AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
             
 
-        #3. proximity -> volume 
-        #todo
+        #3. proximity -> Zone
+        if p1_zone is not None:
+            prevTrack = p1_zone
+        else:
+            prevTrack = 0
+
+        p1_zone = zonesDetect(centroid_p1)
+        
+        #print p1_zone and say p1_zone before printing
+        print(f'p1_zone: {p1_zone}')
+        
+        if p2_detect == True:
+
+            p2_zone = zonesDetect(centroid_p2)
+            print(f'p2_zone: {p2_zone}')
             
+            if (p1_zone == p2_zone):
+                #lower prev track volume to 0
+                AbletonTest.doSomething("/live/track/set/volume {prevTrack} 0")
+                #change track to p1_zone
+                AbletonTest.doSomething("/live/track/set/volume {p1_zone} .75")
+                print(f'matchedZone: {p1_zone}')
+            
+        else:
+            #lower prev track volume to 0
+            AbletonTest.doSomething("/live/track/set/volume {prevTrack} 0")
+            #change track to p1_zone
+            AbletonTest.doSomething("/live/track/set/volume {p1_zone} .75")
+            print(f'matchedZone: {p1_zone}')
+    
+                          
             
         ###################################
         ###################################
@@ -553,7 +605,7 @@ def main():
         cv2.imshow("yolov8", frame)
 
         #break out it we esc
-        if (cv2.waitKey(30) == 27):
+        if (cv2.waitKey(15) == 27):
             break
 
 if __name__ == "__main__":
