@@ -417,8 +417,12 @@ def main():
     AbletonTest.doSomething("/live/song/start_playing") #start song
     # tempo = client.query("/live/song/get/tempo")
     #print("Got song tempo: %.1f" % tempo[0])
+    currentTrack = 0
     bpm = (AbletonTest.getTempo("/live/song/get/tempo_bpm"))
+    volume = (AbletonTest.getVolume("/live/track/get/volume " + str(currentTrack)))
+
     print("BPM: ",bpm)
+    print("Volume: ",volume)
     bpmLowerLimit = bpm - 30.0
     bpmUpperLimit = bpm + 30.0
     
@@ -531,22 +535,27 @@ def main():
         ###################################
         ###################################
         #Ableton testing
+        #setting prev track zone if it hasn't been set yet 
+        if prevTrackZone is None:
+            if p1_zone is None:
+                prevTrackZone = 0  
                 
         #1. proximity -> volume 
         if (p1_detect and p2_detect):
             # volume ranges from 0.0 (minimum) - to 1.0 (maxiumum)
             if (dist < 200):
-                AbletonTest.doSomething("/live/track/set/volume 0 .75")
+                AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .75")
             elif (dist < 400):
-                AbletonTest.doSomething("/live/track/set/volume 0 .50")
+                AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .50")
             elif (dist < 600):
-                AbletonTest.doSomething("/live/track/set/volume 0 .25")
+                AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .25")
             elif (dist >= 600):
-                AbletonTest.doSomething("/live/track/set/volume 0 .0")
+                AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " 0")
         elif ((p1_detect and not p2_detect) or (not p1_detect and p2_detect)):
-            AbletonTest.doSomething("/live/track/set/volume 0 .75")
+            AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .75")
+
         else:
-            AbletonTest.doSomething("/live/track/set/volume 0 .75")
+            AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .75")          
             
         #2. collective movement -> BPM 
         if ((motion_p1 + motion_p2) < .04 and bpm > bpmLowerLimit):
@@ -567,9 +576,7 @@ def main():
             
 
         #3. proximity -> Zone
-        if prevTrackZone is None:
-            if p1_zone is None:
-                prevTrackZone = 0
+       
         
         if p1_detect == True:
             p1_zone = zonesDetect(centroid_p1)
@@ -581,13 +588,16 @@ def main():
             p2_zone = zonesDetect(centroid_p2)
             print(f'p2_zone: {p2_zone}')
             
-            if (p1_zone == p2_zone):
-                #lower prev track volume to 0
-                AbletonTest.doSomething("/live/track/set/volume {prevTrackZone} 0")
-                #change track to p1_zone
-                AbletonTest.doSomething("/live/track/set/volume {p1_zone} .75")
+            if (p1_zone == p2_zone) and (p1_zone != prevTrackZone):
                 print(f'prevTrackZone: {prevTrackZone}')
                 print(f'matchedZone: {p1_zone}')
+                #set current track to new zone
+                currentTrack = p1_zone
+                #lower prev track volume to 0
+                AbletonTest.doSomething("/live/track/set/volume " + str(prevTrackZone) + " 0")
+                #change track to p1_zone
+                AbletonTest.doSomething("/live/track/set/volume " + str(p1_zone) + " .75")
+             
                 prevTrackZone = p1_zone
                           
             
