@@ -42,7 +42,7 @@ class BYTETrackerArgs:
 
 colors = sv.ColorPalette.default()
 
-zoneDefs = np.array([360, 720, 640, 1080])
+zoneDefs = np.array([ 640, 1080, 360, 720])
 
 #create polygons
 polygons = [
@@ -312,27 +312,27 @@ def motion (centroid_p1, centroid_p1_prev, centroid_p2, centroid_p2_prev):
     return normMotionp1, normMotionp2
 
 #centroid zones
-def zonesDetect (centroid_p1):
+def zonesDetect (centroid_p):
     
-    #if centroid x coordinate is greater than the x coordinate of the zone, then it is in the zone
-    if centroid_p1[0] > zoneDefs[0]:
-        #we now know in the right half split down the middle vertically
-        if centroid_p1[1] > zoneDefs[2]:
-            #we now know in the bottom half
-            zone_p1 = 4
+    #if centroid x coordinate is greater than the x coordinate of the zone...
+    if centroid_p[0] > zoneDefs[0]:
+        #we now know it is on the right half
+        if centroid_p[1] > zoneDefs[2]:
+            #we now know it is on the bottom half
+            zone_p = 3
         else:
             #we now know in the top half
-            zone_p1 = 2
+            zone_p = 1
     else:
         #we now know in the left half split down the middle vertically
-        if centroid_p1[1] > zoneDefs[2]:
+        if centroid_p[1] > zoneDefs[2]:
             #we now know in the bottom half
-            zone_p1 = 3
+            zone_p = 2
         else:
             #we now know in the top half
-            zone_p1 = 1
+            zone_p = 0
 
-    return zone_p1
+    return zone_p
 
 #--------------------- MAIN ----------------------
 def main():
@@ -402,6 +402,9 @@ def main():
     area_change_p2 = None
     motion_p1 = 0.0
     motion_p2 = 0.0
+    p1_zone = None
+    prevTrackZone = None
+
       
     ########################################################
     ########################################################
@@ -564,35 +567,28 @@ def main():
             
 
         #3. proximity -> Zone
-        if p1_zone is not None:
-            prevTrack = p1_zone
-        else:
-            prevTrack = 0
-
-        p1_zone = zonesDetect(centroid_p1)
+        if prevTrackZone is None:
+            if p1_zone is None:
+                prevTrackZone = 0
+        
+        if p1_detect == True:
+            p1_zone = zonesDetect(centroid_p1)
         
         #print p1_zone and say p1_zone before printing
         print(f'p1_zone: {p1_zone}')
         
         if p2_detect == True:
-
             p2_zone = zonesDetect(centroid_p2)
             print(f'p2_zone: {p2_zone}')
             
             if (p1_zone == p2_zone):
                 #lower prev track volume to 0
-                AbletonTest.doSomething("/live/track/set/volume {prevTrack} 0")
+                AbletonTest.doSomething("/live/track/set/volume {prevTrackZone} 0")
                 #change track to p1_zone
                 AbletonTest.doSomething("/live/track/set/volume {p1_zone} .75")
+                print(f'prevTrackZone: {prevTrackZone}')
                 print(f'matchedZone: {p1_zone}')
-            
-        else:
-            #lower prev track volume to 0
-            AbletonTest.doSomething("/live/track/set/volume {prevTrack} 0")
-            #change track to p1_zone
-            AbletonTest.doSomething("/live/track/set/volume {p1_zone} .75")
-            print(f'matchedZone: {p1_zone}')
-    
+                prevTrackZone = p1_zone
                           
             
         ###################################
