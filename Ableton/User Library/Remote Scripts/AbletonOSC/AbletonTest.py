@@ -9,6 +9,7 @@ import re
 import argparse
 import readline
 import random
+import array
 
 from client import AbletonOSCClient
 
@@ -43,9 +44,13 @@ def main():
     print("Usage: /live/osc/command [params]")
     
 def getTempo(command):
-    
     bpm = client.query("/live/song/get/tempo")
     return bpm[0]
+
+def getVolume(command):
+    
+    volume = client.query(command)
+    return volume[0]
 
 def doSomething(command):
     
