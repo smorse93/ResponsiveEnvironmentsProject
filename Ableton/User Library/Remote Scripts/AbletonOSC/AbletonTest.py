@@ -9,6 +9,7 @@ import re
 import argparse
 import readline
 import random
+import array
 
 from client import AbletonOSCClient
 
@@ -43,9 +44,48 @@ def main():
     print("Usage: /live/osc/command [params]")
     
 def getTempo(command):
+    client.send_message("/live/reload")
+    print(command)
+    command_str = command
+    command, *params_str = command_str.split(" ")
+    params = []
+    for part in params_str:
+        try:
+            part = int(part)
+        except ValueError:
+            try:
+                part = float(part)
+            except ValueError:
+                pass
+        params.append(part)
+    try:
+        bpm = client.query("/live/song/get/tempo")
+        return bpm[0]
+    except RuntimeError:
+        pass
     
-    bpm = client.query("/live/song/get/tempo")
-    return bpm[0]
+
+def getVolume(command):
+    client.send_message("/live/reload")
+    print(command)
+    command_str = command
+    command, *params_str = command_str.split(" ")
+    params = []
+    for part in params_str:
+        try:
+            part = int(part)
+        except ValueError:
+            try:
+                part = float(part)
+            except ValueError:
+                pass
+        params.append(part)
+    try:
+        return client.query(command, params)
+    except RuntimeError:
+        pass
+
+
 
 def doSomething(command):
     

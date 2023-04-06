@@ -8,23 +8,13 @@ from operator import index
 import cv2
 import argparse
 from pyparsing import results
-from torch import true_divide
+#from torch import true_divide
 from ultralytics import YOLO
 import supervision as sv
 import numpy as np
 import math
-
-<<<<<<< Updated upstream
-=======
-
 import torch
 
-#use the mps device for inference
-print(torch.backends.mps.is_available())
-
-
-
->>>>>>> Stashed changes
 import sys
 sys.path.insert(0, './Ableton/User Library/Remote Scripts/AbletonOSC')
 import AbletonTest
@@ -51,6 +41,8 @@ class BYTETrackerArgs:
 
 
 colors = sv.ColorPalette.default()
+
+zoneDefs = np.array([ 640, 1080, 360, 720])
 
 #create polygons
 polygons = [
@@ -319,12 +311,39 @@ def motion (centroid_p1, centroid_p1_prev, centroid_p2, centroid_p2_prev):
     normMotionp2 = (motionp2/500)*10
     return normMotionp1, normMotionp2
 
+#centroid zones
+def zonesDetect (centroid_p):
+    
+    #if centroid x coordinate is greater than the x coordinate of the zone...
+    if centroid_p[0] > zoneDefs[0]:
+        #we now know it is on the right half
+        if centroid_p[1] > zoneDefs[2]:
+            #we now know it is on the bottom half
+            zone_p = 3
+        else:
+            #we now know in the top half
+            zone_p = 1
+    else:
+        #we now know in the left half split down the middle vertically
+        if centroid_p[1] > zoneDefs[2]:
+            #we now know in the bottom half
+            zone_p = 2
+        else:
+            #we now know in the top half
+            zone_p = 0
+
+    return zone_p
+
 #--------------------- MAIN ----------------------
 def main():
     #getting webcam to run
     args = parse_arguments()
     frame_width, frame_height = args.webcam_resolution
 
+    #for uploading a video (you will need to comment out the cap stuff below)
+    #cap = cv2.VideoCapture('test.mp4')
+
+    #for live feed video
     cap = cv2.VideoCapture(0)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, frame_width)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, frame_height)
@@ -383,6 +402,9 @@ def main():
     area_change_p2 = None
     motion_p1 = 0.0
     motion_p2 = 0.0
+    p1_zone = None
+    prevTrackZone = None
+
       
     ########################################################
     ########################################################
@@ -395,8 +417,12 @@ def main():
     AbletonTest.doSomething("/live/song/start_playing") #start song
     # tempo = client.query("/live/song/get/tempo")
     #print("Got song tempo: %.1f" % tempo[0])
+    currentTrack = 0
     bpm = (AbletonTest.getTempo("/live/song/get/tempo_bpm"))
+    volume = (AbletonTest.getVolume("/live/track/get/volume " + str(currentTrack)))
+
     print("BPM: ",bpm)
+    print("Volume: ",volume)
     bpmLowerLimit = bpm - 30.0
     bpmUpperLimit = bpm + 30.0
     
@@ -409,16 +435,12 @@ def main():
         #read the current frame
         ret, frame = cap.read()
 
-<<<<<<< Updated upstream
-        #put frame into model
-        result = model(frame, agnostic_nms=True)[0]
-=======
         #MPS graphics card line 
-        result = model(frame, device='mps')[0]
-        
+        #result = model(frame, agnostic_nms=True, device='mps')[0]
+        result = model(frame, device="mps")[0]
+
         #put frame into model - uncomment this for intel
         #result = model(frame, agnostic_nms=True)[0]
->>>>>>> Stashed changes
 
         #get detections using the model
         detections = sv.Detections.from_yolov8(result)
@@ -494,7 +516,6 @@ def main():
             #take past three area changes and do average the change in area over the time
             #get a scale from 1 to 3 value or somethign of this - not super clear yet
 
-
         #Annotations for boxes - We don't actually need this except for the visual component
         for zone, zone_annotator, box_annotator in zip(zones, zone_annotators, box_annotators):
             mask = zone.trigger(detections=detections)
@@ -514,22 +535,27 @@ def main():
         ###################################
         ###################################
         #Ableton testing
+        #setting prev track zone if it hasn't been set yet 
+        if prevTrackZone is None:
+            if p1_zone is None:
+                prevTrackZone = 0  
                 
         #1. proximity -> volume 
         if (p1_detect and p2_detect):
             # volume ranges from 0.0 (minimum) - to 1.0 (maxiumum)
             if (dist < 200):
-                AbletonTest.doSomething("/live/track/set/volume 0 .75")
+                AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .75")
             elif (dist < 400):
-                AbletonTest.doSomething("/live/track/set/volume 0 .50")
+                AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .50")
             elif (dist < 600):
-                AbletonTest.doSomething("/live/track/set/volume 0 .25")
+                AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .25")
             elif (dist >= 600):
-                AbletonTest.doSomething("/live/track/set/volume 0 .0")
+                AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " 0")
         elif ((p1_detect and not p2_detect) or (not p1_detect and p2_detect)):
-            AbletonTest.doSomething("/live/track/set/volume 0 .75")
+            AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .75")
+
         else:
-            AbletonTest.doSomething("/live/track/set/volume 0 .75")
+            AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .75")          
             
         #2. collective movement -> BPM 
         if ((motion_p1 + motion_p2) < .04 and bpm > bpmLowerLimit):
@@ -549,9 +575,31 @@ def main():
             AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
             
 
-        #3. proximity -> volume 
-        #todo
+        #3. proximity -> Zone
+       
+        
+        if p1_detect == True:
+            p1_zone = zonesDetect(centroid_p1)
+        
+        #print p1_zone and say p1_zone before printing
+        print(f'p1_zone: {p1_zone}')
+        
+        if p2_detect == True:
+            p2_zone = zonesDetect(centroid_p2)
+            print(f'p2_zone: {p2_zone}')
             
+            if (p1_zone == p2_zone) and (p1_zone != prevTrackZone):
+                print(f'prevTrackZone: {prevTrackZone}')
+                print(f'matchedZone: {p1_zone}')
+                #set current track to new zone
+                currentTrack = p1_zone
+                #lower prev track volume to 0
+                AbletonTest.doSomething("/live/track/set/volume " + str(prevTrackZone) + " 0")
+                #change track to p1_zone
+                AbletonTest.doSomething("/live/track/set/volume " + str(p1_zone) + " .75")
+             
+                prevTrackZone = p1_zone
+                          
             
         ###################################
         ###################################
@@ -563,7 +611,7 @@ def main():
         cv2.imshow("yolov8", frame)
 
         #break out it we esc
-        if (cv2.waitKey(30) == 27):
+        if (cv2.waitKey(15) == 27):
             break
 
 if __name__ == "__main__":
