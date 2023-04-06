@@ -44,13 +44,48 @@ def main():
     print("Usage: /live/osc/command [params]")
     
 def getTempo(command):
-    bpm = client.query("/live/song/get/tempo")
-    return bpm[0]
+    client.send_message("/live/reload")
+    print(command)
+    command_str = command
+    command, *params_str = command_str.split(" ")
+    params = []
+    for part in params_str:
+        try:
+            part = int(part)
+        except ValueError:
+            try:
+                part = float(part)
+            except ValueError:
+                pass
+        params.append(part)
+    try:
+        bpm = client.query("/live/song/get/tempo")
+        return bpm[0]
+    except RuntimeError:
+        pass
+    
 
 def getVolume(command):
-    
-    volume = client.query(command)
-    return volume[0]
+    client.send_message("/live/reload")
+    print(command)
+    command_str = command
+    command, *params_str = command_str.split(" ")
+    params = []
+    for part in params_str:
+        try:
+            part = int(part)
+        except ValueError:
+            try:
+                part = float(part)
+            except ValueError:
+                pass
+        params.append(part)
+    try:
+        return client.query(command, params)
+    except RuntimeError:
+        pass
+
+
 
 def doSomething(command):
     
