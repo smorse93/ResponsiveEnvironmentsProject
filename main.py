@@ -168,12 +168,12 @@ def main():
     frame_width, frame_height = args.webcam_resolution
 
     #for uploading a video (you will need to comment out the cap stuff below)
-    cap = cv2.VideoCapture('testClipStevenAnaQuick.mp4')
+    #cap = cv2.VideoCapture('testClipStevenAnaQuick.mp4')
 
     #for live feed video
-    # cap = cv2.VideoCapture(0)
-    # cap.set(cv2.CAP_PROP_FRAME_WIDTH, frame_width)
-    # cap.set(cv2.CAP_PROP_FRAME_HEIGHT, frame_height)
+    cap = cv2.VideoCapture(0)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, frame_width)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, frame_height)
 
     #set model 
     model = YOLO("yolov8l.pt")
