@@ -262,7 +262,7 @@ def main():
     print("BPM: ",bpm)
     print("Volume: ",volume)
     bpmLowerLimit = 90
-    bpmUpperLimit = bpm + 30.0
+    #bpmUpperLimit = bpm + 30.0
     
     ########################################################
     ########################################################
