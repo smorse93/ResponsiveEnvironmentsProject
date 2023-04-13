@@ -90,184 +90,7 @@ def parse_arguments() -> argparse.Namespace:
 
 
 
-# ------------- UTILITES -------------------------
 
-# geometry utilities
-@dataclass(frozen=True)
-class Point:
-    x: float
-    y: float
-    
-    @property
-    def int_xy_tuple(self) -> Tuple[int, int]:
-        return int(self.x), int(self.y)
-
-
-@dataclass(frozen=True)
-class Rect:
-    x: float
-    y: float
-    width: float
-    height: float
-
-    @property
-    def min_x(self) -> float:
-        return self.x
-    
-    @property
-    def min_y(self) -> float:
-        return self.y
-    
-    @property
-    def max_x(self) -> float:
-        return self.x + self.width
-    
-    @property
-    def max_y(self) -> float:
-        return self.y + self.height
-        
-    @property
-    def top_left(self) -> Point:
-        return Point(x=self.x, y=self.y)
-    
-    @property
-    def bottom_right(self) -> Point:
-        return Point(x=self.x + self.width, y=self.y + self.height)
-
-    @property
-    def bottom_center(self) -> Point:
-        return Point(x=self.x + self.width / 2, y=self.y + self.height)
-
-    @property
-    def top_center(self) -> Point:
-        return Point(x=self.x + self.width / 2, y=self.y)
-
-    @property
-    def center(self) -> Point:
-        return Point(x=self.x + self.width / 2, y=self.y + self.height / 2)
-
-    def pad(self, padding: float) -> Rect:
-        return Rect(
-            x=self.x - padding, 
-            y=self.y - padding,
-            width=self.width + 2*padding,
-            height=self.height + 2*padding
-        )
-    
-    def contains_point(self, point: Point) -> bool:
-        return self.min_x < point.x < self.max_x and self.min_y < point.y < self.max_y
-
-@dataclass
-class Detection:
-    rect: Rect
-    class_id: int
-    class_name: str
-    confidence: float
-    tracker_id: Optional[int] = None
-
-    @classmethod
-    def from_results(cls, pred: np.ndarray, names: Dict[int, str]) -> List[Detection]:
-        result = []
-        for x_min, y_min, x_max, y_max, confidence, class_id in pred:
-            class_id=int(class_id)
-            result.append(Detection(
-                rect=Rect(
-                    x=float(x_min),
-                    y=float(y_min),
-                    width=float(x_max - x_min),
-                    height=float(y_max - y_min)
-                ),
-                class_id=class_id,
-                class_name=names[class_id],
-                confidence=float(confidence)
-            ))
-        return result
-
-
-def filter_detections_by_class(detections: List[Detection], class_name: str) -> List[Detection]:
-    return [
-        detection
-        for detection 
-        in detections
-        if detection.class_name == class_name
-    ]
-# draw utilities
-
-
-@dataclass(frozen=True)
-class Color:
-    r: int
-    g: int
-    b: int
-        
-    @property
-    def bgr_tuple(self) -> Tuple[int, int, int]:
-        return self.b, self.g, self.r
-
-    @classmethod
-    def from_hex_string(cls, hex_string: str) -> Color:
-        r, g, b = tuple(int(hex_string[1 + i:1 + i + 2], 16) for i in (0, 2, 4))
-        return Color(r=r, g=g, b=b)
-
-
-def draw_rect(image: np.ndarray, rect: Rect, color: Color, thickness: int = 2) -> np.ndarray:
-    cv2.rectangle(image, rect.top_left.int_xy_tuple, rect.bottom_right.int_xy_tuple, color.bgr_tuple, thickness)
-    return image
-
-
-def draw_filled_rect(image: np.ndarray, rect: Rect, color: Color) -> np.ndarray:
-    cv2.rectangle(image, rect.top_left.int_xy_tuple, rect.bottom_right.int_xy_tuple, color.bgr_tuple, -1)
-    return image
-
-
-def draw_polygon(image: np.ndarray, countour: np.ndarray, color: Color, thickness: int = 2) -> np.ndarray:
-    cv2.drawContours(image, [countour], 0, color.bgr_tuple, thickness)
-    return image
-
-
-def draw_filled_polygon(image: np.ndarray, countour: np.ndarray, color: Color) -> np.ndarray:
-    cv2.drawContours(image, [countour], 0, color.bgr_tuple, -1)
-    return image
-
-
-def draw_text(image: np.ndarray, anchor: Point, text: str, color: Color, thickness: int = 2) -> np.ndarray:
-    cv2.putText(image, text, anchor.int_xy_tuple, cv2.FONT_HERSHEY_SIMPLEX, 0.7, color.bgr_tuple, thickness, 2, False)
-    return image
-
-
-def draw_ellipse(image: np.ndarray, rect: Rect, color: Color, thickness: int = 2) -> np.ndarray:
-    cv2.ellipse(
-        image,
-        center=rect.bottom_center.int_xy_tuple,
-        axes=(int(rect.width), int(0.35 * rect.width)),
-        angle=0.0,
-        startAngle=-45,
-        endAngle=235,
-        color=color.bgr_tuple,
-        thickness=thickness,
-        lineType=cv2.LINE_4
-    )
-    return image
-
-
-# base annotator
-  
-
-@dataclass
-class BaseAnnotator:
-    colors: List[Color]
-    thickness: int
-
-    def annotate(self, image: np.ndarray, detections: List[Detection]) -> np.ndarray:
-        annotated_image = image.copy()
-        for detection in detections:
-            annotated_image = draw_ellipse(
-                image=image,
-                rect=detection.rect,
-                color=self.colors[detection.class_id],
-                thickness=self.thickness
-            )
-        return annotated_image
 
 #area of bounding box
 def area (p1_loc, p2_loc):
@@ -276,10 +99,14 @@ def area (p1_loc, p2_loc):
     return area_p1, area_p2
 
 #Change in bounding box area
-def areaChange (area_p1, area_p2, area_p1_prev, area_p2_prev):
+def areaChange (area_p1, area_p1_prev):
     area_change_p1 = abs(area_p1 - area_p1_prev)
-    area_change_p2 = abs(area_p2 - area_p2_prev)
-    return area_change_p1, area_change_p2
+   
+    #normalize the area change
+    area_change_p1 = area_change_p1/area_p1
+    
+
+    return area_change_p1
 
 #centroid finding
 def centroid (p1_loc, p2_loc):
@@ -341,7 +168,7 @@ def main():
     frame_width, frame_height = args.webcam_resolution
 
     #for uploading a video (you will need to comment out the cap stuff below)
-    #cap = cv2.VideoCapture('test.mp4')
+    #cap = cv2.VideoCapture('testClipStevenAnaQuick.mp4')
 
     #for live feed video
     cap = cv2.VideoCapture(0)
@@ -400,12 +227,15 @@ def main():
     area_p2_prev_prev = None
     area_change_p1 = None
     area_change_p2 = None
+    area_change_sum = 0
     motion_p1 = 0.0
     motion_p2 = 0.0
     p1_zone = None
     prevTrackZone = None
+    frameCount = 0
+    listAreaChange = [0.000,0.000,0.000,0.000]
 
-      
+
     ########################################################
     ########################################################
     ########################################################
@@ -420,11 +250,19 @@ def main():
     currentTrack = 0
     bpm = (AbletonTest.getTempo("/live/song/get/tempo_bpm"))
     volume = (AbletonTest.getVolume("/live/track/get/volume " + str(currentTrack)))
+    originalBPM = bpm
+
+    #intiate tracks volumes
+    AbletonTest.doSomething("/live/track/set/volume " + str(0) + " .01")
+    AbletonTest.doSomething("/live/track/set/volume " + str(1) + " .01")
+    AbletonTest.doSomething("/live/track/set/volume " + str(2) + " .01")
+    AbletonTest.doSomething("/live/track/set/volume " + str(3) + " .01")
+
 
     print("BPM: ",bpm)
     print("Volume: ",volume)
-    bpmLowerLimit = bpm - 30.0
-    bpmUpperLimit = bpm + 30.0
+    bpmLowerLimit = 90
+    #bpmUpperLimit = bpm + 30.0
     
     ########################################################
     ########################################################
@@ -498,19 +336,24 @@ def main():
             area_p1_prev = area_p1
             area_p2_prev = area_p2
         
-        
-        
         #get area values
         area_p1, area_p2 = area (p1_loc, p2_loc)
                
         #get area change values
         if (area_p1_prev is not None):
-            area_change_p1, area_change_p2 = areaChange(area_p1, area_p2, area_p1_prev, area_p2_prev)
-
+            area_change_p1 = areaChange(area_p1, area_p1_prev)
+            area_change_p2 = areaChange(area_p2, area_p2_prev)
+            if math.isnan(area_change_p1):
+                area_change_p1 = 0;
+            if math.isnan(area_change_p2):
+                area_change_p2 = 0;
+            
+            area_change_sum = area_change_p1 + area_change_p2 
         print(f'area_p1: {area_p1}')
         print(f'area_p2: {area_p2}')
         print(f'area_p1_change: {area_change_p1}')
         print(f'area_p2_change: {area_change_p2}')
+        print(f'area_change_sum: {area_change_sum}')
 
         #dancing vs not dancing metric will need to be calculated here
             #take past three area changes and do average the change in area over the time
@@ -549,30 +392,60 @@ def main():
                 AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .50")
             elif (dist < 600):
                 AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .25")
-            elif (dist >= 600):
-                AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " 0")
-        elif ((p1_detect and not p2_detect) or (not p1_detect and p2_detect)):
-            AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .75")
-
-        else:
-            AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .75")          
+            elif (dist < 800):
+                AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .15")
+            elif (dist >= 800):
+                AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .01")
+        #commenting this out because it sometimes randomly turns the volume back up when it misses recognizing p2 for a single frame which sometimes happens
+        # elif ((p1_detect and not p2_detect) or (not p1_detect and p2_detect)):
+        #     AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .75")
+        # else:
+        #     AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .75")          
             
         #2. collective movement -> BPM 
-        if ((motion_p1 + motion_p2) < .04 and bpm > bpmLowerLimit):
-            bpm -= 10.0
-            AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
-        elif ((motion_p1 + motion_p2) < .08 and bpm > bpmLowerLimit):
-            bpm -= 5.0
-            AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
-        elif ((motion_p1 + motion_p2) < .12):
-            #do nothing
-            bpm += 0.0
-        elif ((motion_p1 + motion_p2) < .16 and bpm < bpmUpperLimit):
-            bpm += 5.0
-            AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
-        elif ((motion_p1 + motion_p2) < .20 and bpm < bpmUpperLimit):
-            bpm += 10.0
-            AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
+        #I tried changing this up, we will see if this works better 
+
+        #add area_change_sum to listAreaChange at position frameCount
+        listAreaChange[frameCount] = area_change_sum
+        print(f'listAreaChange: {listAreaChange}')
+        print(f'bpm: {bpm}')
+        frameCount += 1
+        if frameCount == 4:
+            frameCount = 0
+            #reset listAreaChange to 0's
+            listAreaChange = [0.000,0.000,0.000,0.000]
+            #insert areaChangeSum into listAreaChange
+            listAreaChange[frameCount] = area_change_sum
+
+            #get the mean of the listAreaChange
+            sumAreaChange = sum(listAreaChange)
+            print(f'sumAreaChange: {sumAreaChange}')
+
+            #if the sumAreaChange is less than 0.1, decrease the bpm by 5
+            if (sumAreaChange < 0.1 and bpm > bpmLowerLimit):
+                bpm -= 5.0
+                AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
+            #if the sumAreaChange is greater than 0.1 and bpm is not equal to originalBPM, increase the bpm by 5
+            elif (sumAreaChange > 0.1 and bpm != originalBPM):
+                bpm += 5.0
+                AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
+            
+
+        # if ((motion_p1 + motion_p2) < .04 and bpm > bpmLowerLimit):
+        #     bpm -= 10.0
+        #     AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
+        # elif ((motion_p1 + motion_p2) < .08 and bpm > bpmLowerLimit):
+        #     bpm -= 5.0
+        #     AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
+        # elif ((motion_p1 + motion_p2) < .12):
+        #     #do nothing
+        #     bpm += 0.0
+        # elif ((motion_p1 + motion_p2) < .16 and bpm < bpmUpperLimit):
+        #     bpm += 5.0
+        #     AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
+        # elif ((motion_p1 + motion_p2) < .20 and bpm < bpmUpperLimit):
+        #     bpm += 10.0
+        #     AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
             
 
         #3. proximity -> Zone
@@ -594,7 +467,7 @@ def main():
                 #set current track to new zone
                 currentTrack = p1_zone
                 #lower prev track volume to 0
-                AbletonTest.doSomething("/live/track/set/volume " + str(prevTrackZone) + " 0")
+                AbletonTest.doSomething("/live/track/set/volume " + str(prevTrackZone) + " .01")
                 #change track to p1_zone
                 AbletonTest.doSomething("/live/track/set/volume " + str(p1_zone) + " .75")
              
