@@ -99,14 +99,14 @@ def area (p1_loc, p2_loc):
     return area_p1, area_p2
 
 #Change in bounding box area
-def areaChange (area_p1, area_p2, area_p1_prev, area_p2_prev):
+def areaChange (area_p1, area_p1_prev):
     area_change_p1 = abs(area_p1 - area_p1_prev)
-    area_change_p2 = abs(area_p2 - area_p2_prev)
+   
     #normalize the area change
     area_change_p1 = area_change_p1/area_p1
-    area_change_p2 = area_change_p2/area_p2
+    
 
-    return area_change_p1, area_change_p2
+    return area_change_p1
 
 #centroid finding
 def centroid (p1_loc, p2_loc):
@@ -233,7 +233,7 @@ def main():
     p1_zone = None
     prevTrackZone = None
     frameCount = 0
-    listAreaChange = [0,0,0,0]
+    listAreaChange = [0.000,0.000,0.000,0.000]
 
 
     ########################################################
@@ -252,9 +252,16 @@ def main():
     volume = (AbletonTest.getVolume("/live/track/get/volume " + str(currentTrack)))
     originalBPM = bpm
 
+    #intiate tracks volumes
+    AbletonTest.doSomething("/live/track/set/volume " + str(0) + " .01")
+    AbletonTest.doSomething("/live/track/set/volume " + str(1) + " .01")
+    AbletonTest.doSomething("/live/track/set/volume " + str(2) + " .01")
+    AbletonTest.doSomething("/live/track/set/volume " + str(3) + " .01")
+
+
     print("BPM: ",bpm)
     print("Volume: ",volume)
-    bpmLowerLimit = bpm - 30.0
+    bpmLowerLimit = 90
     bpmUpperLimit = bpm + 30.0
     
     ########################################################
@@ -334,7 +341,13 @@ def main():
                
         #get area change values
         if (area_p1_prev is not None):
-            area_change_p1, area_change_p2 = areaChange(area_p1, area_p2, area_p1_prev, area_p2_prev)
+            area_change_p1 = areaChange(area_p1, area_p1_prev)
+            area_change_p2 = areaChange(area_p2, area_p2_prev)
+            if math.isnan(area_change_p1):
+                area_change_p1 = 0;
+            if math.isnan(area_change_p2):
+                area_change_p2 = 0;
+            
             area_change_sum = area_change_p1 + area_change_p2 
         print(f'area_p1: {area_p1}')
         print(f'area_p2: {area_p2}')
@@ -395,11 +408,12 @@ def main():
         #add area_change_sum to listAreaChange at position frameCount
         listAreaChange[frameCount] = area_change_sum
         print(f'listAreaChange: {listAreaChange}')
+        print(f'bpm: {bpm}')
         frameCount += 1
         if frameCount == 4:
             frameCount = 0
             #reset listAreaChange to 0's
-            listAreaChange = [0,0,0,0]
+            listAreaChange = [0.000,0.000,0.000,0.000]
             #insert areaChangeSum into listAreaChange
             listAreaChange[frameCount] = area_change_sum
 
