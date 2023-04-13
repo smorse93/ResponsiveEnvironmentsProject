@@ -261,7 +261,7 @@ def main():
 
     print("BPM: ",bpm)
     print("Volume: ",volume)
-    bpmLowerLimit = 90
+    bpmLowerLimit = 75
     #bpmUpperLimit = bpm + 30.0
     
     ########################################################
@@ -422,14 +422,25 @@ def main():
             print(f'sumAreaChange: {sumAreaChange}')
 
             #if the sumAreaChange is less than 0.1, decrease the bpm by 5
-            if (sumAreaChange < 0.1 and bpm > bpmLowerLimit):
+            if (sumAreaChange < 0.06 and bpm > bpmLowerLimit):
                 bpm -= 5.0
+                AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
+            elif (sumAreaChange < 0.1 and bpm > bpmLowerLimit):
+                bpm -= 3.0
                 AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
             #if the sumAreaChange is greater than 0.1 and bpm is not equal to originalBPM, increase the bpm by 5
             elif (sumAreaChange > 0.1 and bpm != originalBPM):
-                bpm += 5.0
+                bpm += 3.0
+                if (bpm > 120):
+                    bpm = 120
                 AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
+            elif (sumAreaChange > 0.15 and bpm != originalBPM):
+                 bpm += 5.0
+                 if (bpm > 120):
+                     bpm = 120
+                 AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
             
+         
 
         # if ((motion_p1 + motion_p2) < .04 and bpm > bpmLowerLimit):
         #     bpm -= 10.0
