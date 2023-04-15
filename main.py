@@ -27,18 +27,6 @@ import pygame
 # initialize Pygame
 pygame.init()
 
-# set up screen dimensions
-screen_width = 1080
-screen_height = 720
-screen = pygame.display.set_mode((screen_width, screen_height))
-
-# set up circle dimensions
-circle_radius = 25
-circle_color = (255, 0, 0)
-circle_x = screen_width // 2
-circle_y = screen_height // 2
-
-
 
 colors = sv.ColorPalette.default()
 
@@ -86,9 +74,6 @@ def parse_arguments() -> argparse.Namespace:
     )
     args = parser.parse_args()
     return args
-
-
-
 
 
 
@@ -235,6 +220,34 @@ def main():
     frameCount = 0
     listAreaChange = [0.000,0.000,0.000,0.000]
 
+    ########################################################
+    ####---Viz stuff---####
+    ########################################################
+
+    # set up screen dimensions
+    screen_width = 1080
+    screen_height = 720
+    screen = pygame.display.set_mode((screen_width, screen_height))
+
+    # set up first circle dimensions
+    circle1_radius = 25
+    circle1_color = (0, 255, 255)  # cyan
+    circle1_x = screen_width // 2
+    circle1_y = screen_height // 2
+
+    # set up second circle dimensions
+    circle2_radius = 15
+    circle2_color = (255, 0, 0)  # red
+    circle2_x = 0
+    circle2_y = 0
+
+    # set up tail dimensions
+    tail_length = 10
+    tail_color = (0, 255, 255, 128)  # cyan
+    tail_positions = []
+
+    #set screen background to black
+    screen.fill((0, 0, 0))
 
     ########################################################
     ########################################################
@@ -249,6 +262,8 @@ def main():
     #print("Got song tempo: %.1f" % tempo[0])
     currentTrack = 0
     bpm = (AbletonTest.getTempo("/live/song/get/tempo_bpm"))
+    if bpm == None:
+        bpm = 120
     volume = (AbletonTest.getVolume("/live/track/get/volume " + str(currentTrack)))
     originalBPM = bpm
 
@@ -267,7 +282,7 @@ def main():
     ########################################################
     ########################################################
     ########################################################
-
+    tail_positions = []
     
     while True:
         #read the current frame
@@ -458,27 +473,7 @@ def main():
             listAreaChange = [0.000,0.000,0.000,0.000]
             
             
-
-        # if ((motion_p1 + motion_p2) < .04 and bpm > bpmLowerLimit):
-        #     bpm -= 10.0
-        #     AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
-        # elif ((motion_p1 + motion_p2) < .08 and bpm > bpmLowerLimit):
-        #     bpm -= 5.0
-        #     AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
-        # elif ((motion_p1 + motion_p2) < .12):
-        #     #do nothing
-        #     bpm += 0.0
-        # elif ((motion_p1 + motion_p2) < .16 and bpm < bpmUpperLimit):
-        #     bpm += 5.0
-        #     AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
-        # elif ((motion_p1 + motion_p2) < .20 and bpm < bpmUpperLimit):
-        #     bpm += 10.0
-        #     AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
-            
-
-        #3. proximity -> Zone
-       
-        
+        #3. proximity -> Zone       
         if p1_detect == True:
             p1_zone = zonesDetect(centroid_p1)
         
@@ -515,27 +510,57 @@ def main():
         if (cv2.waitKey(15) == 27):
             break
         
-        #convert centroid_p1[0] to int
-        #convert centroid_p1[1] to int
-
-        x = int(centroid_p1[0])
-        y = int(centroid_p1[1])
+        ###################################
+        ########--VISUALIZATION--##########
+        ###################################
         
+        # update tail positions and add current position to the list
+        tail_positions.append((circle1_x, circle1_y))
+        if len(tail_positions) > tail_length:
+            tail_positions = tail_positions[1:]
 
-        # set circle position to the x and y coordinates
-        circle_x = x
-        circle_y = y
+        # set circle1 position to the x and y coordinates
+        circle1_x = int(centroid_p1[0])
+        circle1_y = int(centroid_p1[1])
 
-        # handle events
+        # update circle2 position to the x2 and y2 coordinates
+        circle2_x = int(centroid_p2[0])
+        circle2_y = int(centroid_p2[1])
+
+
+
+
+         # handle events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
 
-        # draw circle and update screen
-        screen.fill((255, 255, 255))
-        pygame.draw.circle(screen, circle_color, (circle_x, circle_y), circle_radius)
+        # draw tail circles with decreasing transparency
+        for i, position in enumerate(tail_positions):
+            alpha = int((1 - i/tail_length) * 255)
+            pygame.draw.circle(screen, (tail_color[0], tail_color[1], tail_color[2], alpha), position, circle1_radius)
+
+        #print all of the variables i;m about to use in draw
+        print(f'circle1_x: {circle1_x}')
+        print(f'circle1_y: {circle1_y}')
+        print(f'circle2_x: {circle2_x}')
+        print(f'circle2_y: {circle2_y}')
+        print(f'circle1_radius: {circle1_radius}')
+        print(f'circle2_radius: {circle2_radius}')
+        print(f'circle1_color: {circle1_color}')
+        print(f'circle2_color: {circle2_color}')
+        print(f'screehn: {screen}')
+
+        # draw circle1
+        pygame.draw.circle(screen, circle1_color, (circle1_x, circle1_y), circle1_radius)
+
+        # draw circle2
+        pygame.draw.circle(screen, circle2_color, (circle2_x, circle2_y), circle2_radius)
+
+        # update screen
         pygame.display.update()
+        
 
 if __name__ == "__main__":
     main()
