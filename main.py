@@ -15,29 +15,29 @@ import numpy as np
 import math
 import torch
 
+import pygame
+
 import sys
 sys.path.insert(0, './Ableton/User Library/Remote Scripts/AbletonOSC')
 import AbletonTest
 
+# initialize Pygame
+import pygame
 
-#getting ByteTrack and other libs working
-#ignore for now, not sure if I need ByteTrack
-import sys
-sys.path.append(f"/ByteTrack")
+# initialize Pygame
+pygame.init()
 
-from dataclasses import dataclass
+# set up screen dimensions
+screen_width = 1080
+screen_height = 720
+screen = pygame.display.set_mode((screen_width, screen_height))
 
-@dataclass(frozen=True)
-class BYTETrackerArgs:
-    track_thresh: float = 0.25
-    track_buffer: int = 30
-    match_thresh: float = 0.8
-    aspect_ratio_thresh: float = 3.0
-    min_box_area: float = 1.0
-    mot20: bool = False
+# set up circle dimensions
+circle_radius = 25
+circle_color = (255, 0, 0)
+circle_x = screen_width // 2
+circle_y = screen_height // 2
 
-# from ByteTrack.yolox.tracker.byte_tracker import BYTETracker, STrack
-# from onemetric.cv.utils.iou import box_iou_batch
 
 
 colors = sv.ColorPalette.default()
@@ -497,6 +497,28 @@ def main():
         #break out it we esc
         if (cv2.waitKey(15) == 27):
             break
+        
+        #convert centroid_p1[0] to int
+        #convert centroid_p1[1] to int
+
+        x = int(centroid_p1[0])
+        y = int(centroid_p1[1])
+        
+
+        # set circle position to the x and y coordinates
+        circle_x = x
+        circle_y = y
+
+        # handle events
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+        # draw circle and update screen
+        screen.fill((255, 255, 255))
+        pygame.draw.circle(screen, circle_color, (circle_x, circle_y), circle_radius)
+        pygame.display.update()
 
 if __name__ == "__main__":
     main()
