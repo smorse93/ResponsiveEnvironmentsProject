@@ -384,23 +384,28 @@ def main():
                 prevTrackZone = 0  
                 
         #1. proximity -> volume 
+        # dist ranges from 0.0 (minimum) to 1297.99846 (maximum)
+        # volume ranges from 0.0 (minimum) to 1.0 (maxiumum)
+
         if (p1_detect and p2_detect):
-            # volume ranges from 0.0 (minimum) - to 1.0 (maxiumum)
-            if (dist < 200):
+            if (dist < 300):
                 AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .75")
             elif (dist < 400):
-                AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .50")
+                AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .65")
+            elif (dist < 500):
+                AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .55")
             elif (dist < 600):
-                AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .25")
+                AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .45")
+            elif (dist < 700):
+                AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .35")
             elif (dist < 800):
+                AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .25")
+            elif (dist < 900):
                 AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .15")
-            elif (dist >= 800):
+            elif (dist < 1100):
+                AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .07")
+            elif (dist >= 1100):
                 AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .01")
-        #commenting this out because it sometimes randomly turns the volume back up when it misses recognizing p2 for a single frame which sometimes happens
-        # elif ((p1_detect and not p2_detect) or (not p1_detect and p2_detect)):
-        #     AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .75")
-        # else:
-        #     AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .75")          
             
         #2. collective movement -> BPM 
         #I tried changing this up, we will see if this works better 
@@ -412,35 +417,47 @@ def main():
         frameCount += 1
         if frameCount == 4:
             frameCount = 0
-            #reset listAreaChange to 0's
-            listAreaChange = [0.000,0.000,0.000,0.000]
-            #insert areaChangeSum into listAreaChange
-            listAreaChange[frameCount] = area_change_sum
+            print('CHANGING BPM')
 
             #get the mean of the listAreaChange
             sumAreaChange = sum(listAreaChange)
-            print(f'sumAreaChange: {sumAreaChange}')
+            if (type(sumAreaChange) != int):
+                sumAreaChange = sumAreaChange.tolist()
+                print(f'sumAreaChange: {sumAreaChange}')
+            else:
+                print('sumAreaChange is int and doesnt need to be changed')
 
             #if the sumAreaChange is less than 0.1, decrease the bpm by 5
             if (sumAreaChange < 0.06 and bpm > bpmLowerLimit):
                 bpm -= 5.0
                 AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
-            elif (sumAreaChange < 0.1 and bpm > bpmLowerLimit):
+                print('bpm changed -5')
+            elif (sumAreaChange < 0.15 and bpm > bpmLowerLimit):
                 bpm -= 3.0
                 AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
+                print('bpm changed -3')
             #if the sumAreaChange is greater than 0.1 and bpm is not equal to originalBPM, increase the bpm by 5
-            elif (sumAreaChange > 0.1 and bpm != originalBPM):
-                bpm += 3.0
-                if (bpm > 120):
-                    bpm = 120
-                AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
             elif (sumAreaChange > 0.15 and bpm != originalBPM):
+                bpm += 3.0
+                if (bpm > 132):
+                    bpm = 132
+                AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
+                print('bpm changed +3')
+            elif (sumAreaChange > 0.4 and bpm != originalBPM):
                  bpm += 5.0
-                 if (bpm > 120):
-                     bpm = 120
+                 if (bpm > 132):
+                     bpm = 132
                  AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
+                 print('bpm changed +5')
+            else:
+                print('NO CHANGE')
+                print(sumAreaChange)
+                print(type(sumAreaChange))
+                
+            #reset listAreaChange to 0's
+            listAreaChange = [0.000,0.000,0.000,0.000]
             
-         
+            
 
         # if ((motion_p1 + motion_p2) < .04 and bpm > bpmLowerLimit):
         #     bpm -= 10.0
