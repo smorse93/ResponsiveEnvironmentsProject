@@ -608,18 +608,19 @@ def main():
         # draw current circle
         pygame.draw.circle(screen, circle1_color, (circle1_x, circle1_y), circle1_radius)
 
-        # draw tail circles with decreasing brightness and decreasing radius
-        for i, position in enumerate(tail2_positions):
-            brightness = 255 - int(i/tail_length * 255)
-            tail_radius = circle_radius_normal - int((tail_length - i)/tail_length * circle_radius_normal)
-            tail2_color_dark = tuple(max(0, c - brightness) for c in tail2_color)
-            pygame.draw.circle(screen, tail2_color_dark, position, tail_radius)
+        if(p2_detect== True):
+            # draw tail circles with decreasing brightness and decreasing radius
+            for i, position in enumerate(tail2_positions):
+                brightness = 255 - int(i/tail_length * 255)
+                tail_radius = circle_radius_normal - int((tail_length - i)/tail_length * circle_radius_normal)
+                tail2_color_dark = tuple(max(0, c - brightness) for c in tail2_color)
+                pygame.draw.circle(screen, tail2_color_dark, position, tail_radius)
+            
+                # draw circle
+                pygame.draw.circle(screen, circle2_color, (circle2_x, circle2_y), circle2_radius)
 
-        # draw circle
-        pygame.draw.circle(screen, circle2_color, (circle2_x, circle2_y), circle2_radius)
-
-        # draw current circle
-        pygame.draw.circle(screen, circle2_color, (circle2_x, circle2_y), circle2_radius)
+                # draw current circle
+                pygame.draw.circle(screen, circle2_color, (circle2_x, circle2_y), circle2_radius)
 
         # update screen
         pygame.display.update()
