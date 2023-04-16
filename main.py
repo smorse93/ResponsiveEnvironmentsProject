@@ -263,8 +263,8 @@ def main():
     ########################################################
     ####---Viz stuff---####
     ########################################################
-    #color border purple
-    border_color = (67, 10, 201)
+    #color border purple(67, 10, 201)
+    border_color = (255,255,255)
 
     # set up screen dimensions
     screen_width = 1080
@@ -273,8 +273,8 @@ def main():
 
     # set up first circle dimensions
     circle_radius_normal = 30
-    circle1_radius = 30
-    circle1_color = (0, 0, 255)  # blue
+    circle1_radius = 30  
+    circle1_color = (0, 255, 255)  # cyan
     circle1_x = screen_width // 2
     circle1_y = screen_height // 2
 
@@ -327,7 +327,6 @@ def main():
     ########################################################
     ########################################################
     ########################################################
-    tail_positions = []
     
     while True:
         #read the current frame
@@ -426,12 +425,12 @@ def main():
             frame = box_annotator.annotate(scene=frame, detections=detections_filtered)
             frame = zone_annotator.annotate(scene=frame)
 
-        #create a dict for all of our labels
-        labels = [
-            f"{model.model.names[class_id]} {confidence:0.2f}"
-            for _, confidence, class_id, _
-            in detections
-        ]  
+        # #create a dict for all of our labels
+        # labels = [
+        #     f"{model.model.names[class_id]} {confidence:0.2f}"
+        #     for _, confidence, class_id, _
+        #     in detections
+        # ]  
         
         
         ###################################
@@ -568,7 +567,7 @@ def main():
 
         #create a border around the screen with a stroke of width 10 pixels
         border = pygame.Rect(0, 0, screen_width, screen_height)
-        pygame.draw.rect(screen, border_color, border, 10)
+        pygame.draw.rect(screen, border_color, border, 7)
 
         # update tail positions and add current position to the list
         tail1_positions.append((circle1_x, circle1_y))
@@ -594,19 +593,20 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
+                
+        if(p1_detect== True):
+            # draw tail circles with decreasing brightness and decreasing radius
+            for i, position in enumerate(tail1_positions):
+                brightness = 255 - int(i/tail_length * 255)
+                tail_radius = circle_radius_normal - int((tail_length - i)/tail_length * circle_radius_normal)
+                tail1_color_dark = tuple(max(0, c - brightness) for c in tail1_color)
+                pygame.draw.circle(screen, tail1_color_dark, position, tail_radius)
 
-        # draw tail circles with decreasing brightness and decreasing radius
-        for i, position in enumerate(tail1_positions):
-            brightness = 255 - int(i/tail_length * 255)
-            tail_radius = circle_radius_normal - int((tail_length - i)/tail_length * circle_radius_normal)
-            tail1_color_dark = tuple(max(0, c - brightness) for c in tail1_color)
-            pygame.draw.circle(screen, tail1_color_dark, position, tail_radius)
+            # draw circle
+            pygame.draw.circle(screen, circle1_color, (circle1_x, circle1_y), circle1_radius)
 
-        # draw circle
-        pygame.draw.circle(screen, circle1_color, (circle1_x, circle1_y), circle1_radius)
-
-        # draw current circle
-        pygame.draw.circle(screen, circle1_color, (circle1_x, circle1_y), circle1_radius)
+            # draw current circle
+            pygame.draw.circle(screen, circle1_color, (circle1_x, circle1_y), circle1_radius)
 
         if(p2_detect== True):
             # draw tail circles with decreasing brightness and decreasing radius
