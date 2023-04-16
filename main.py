@@ -146,6 +146,46 @@ def zonesDetect (centroid_p):
 
     return zone_p
 
+#expanding circle on music switch 
+def circleGrow (screen_width, screen_height, centroid_p1, centroid_p2, p1_zone):
+
+    # set up circle dimensions
+    circle_radius = 1
+
+    #make circle color a different value depending on which zone the centroid is in
+    # if p1_zone == 0:
+    #     circle_color = (255, 0, 0)
+    # elif p1_zone == 1:
+    #     circle_color = (0, 255, 0)
+    # elif p1_zone == 2:
+    #     circle_color = (0, 0, 255)
+    # elif p1_zone == 3:
+    #     circle_color = (255, 255, 0)
+
+    circle_color = (255, 255, 0) # YELLOW
+    #get the middle point between centroid_p1 and centroid_p2
+    circle_x = int((centroid_p1[0] + centroid_p2[0])/2)
+    circle_y = int((centroid_p1[1] + centroid_p2[1])/2)
+    
+    screen = pygame.display.set_mode((screen_width, screen_height))
+
+    # main loop
+    while circle_radius <= math.sqrt(screen_width ** 2 + screen_height ** 2):
+        # handle events
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+        # increase circle radius
+        circle_radius += 3
+
+        # draw circle
+        pygame.draw.circle(screen, circle_color, (circle_x, circle_y), circle_radius)
+
+        # update screen
+        pygame.display.update()
+
 #--------------------- MAIN ----------------------
 def main():
     #getting webcam to run
@@ -223,6 +263,8 @@ def main():
     ########################################################
     ####---Viz stuff---####
     ########################################################
+    #color border purple
+    border_color = (67, 10, 201)
 
     # set up screen dimensions
     screen_width = 1080
@@ -230,24 +272,27 @@ def main():
     screen = pygame.display.set_mode((screen_width, screen_height))
 
     # set up first circle dimensions
-    circle1_radius = 25
-    circle1_color = (0, 255, 255)  # cyan
+    circle_radius_normal = 30
+    circle1_radius = 30
+    circle1_color = (0, 0, 255)  # blue
     circle1_x = screen_width // 2
     circle1_y = screen_height // 2
 
     # set up second circle dimensions
-    circle2_radius = 15
+    circle2_radius = 30
     circle2_color = (255, 0, 0)  # red
     circle2_x = 0
     circle2_y = 0
 
     # set up tail dimensions
-    tail_length = 10
-    tail_color = (0, 255, 255, 128)  # cyan
-    tail_positions = []
-
-    #set screen background to black
-    screen.fill((0, 0, 0))
+    tail_length = 5
+    tail1_color = circle1_color
+    tail2_color = circle2_color
+    
+    tail1_color_dark = (0, 255, 255)
+    tail2_color_dark = (0, 255, 255)
+    tail1_positions = []
+    tail2_positions = []
 
     ########################################################
     ########################################################
@@ -495,6 +540,10 @@ def main():
                 AbletonTest.doSomething("/live/track/set/volume " + str(p1_zone) + " .75")
              
                 prevTrackZone = p1_zone
+
+                #call circleGrow function
+                circleGrow(screen_width, screen_height, centroid_p1, centroid_p2, p1_zone)
+
                           
             
         ###################################
@@ -513,11 +562,23 @@ def main():
         ###################################
         ########--VISUALIZATION--##########
         ###################################
-        
+
+        #set screen background to black
+        screen.fill((0, 0, 0))
+
+        #create a border around the screen with a stroke of width 10 pixels
+        border = pygame.Rect(0, 0, screen_width, screen_height)
+        pygame.draw.rect(screen, border_color, border, 10)
+
         # update tail positions and add current position to the list
-        tail_positions.append((circle1_x, circle1_y))
-        if len(tail_positions) > tail_length:
-            tail_positions = tail_positions[1:]
+        tail1_positions.append((circle1_x, circle1_y))
+        if len(tail1_positions) > tail_length:
+            tail1_positions = tail1_positions[1:]
+
+         # update tail positions and add current position to the list
+        tail2_positions.append((circle2_x, circle2_y))
+        if len(tail2_positions) > tail_length:
+            tail2_positions = tail2_positions[1:]
 
         # set circle1 position to the x and y coordinates
         circle1_x = int(centroid_p1[0])
@@ -528,34 +589,36 @@ def main():
         circle2_y = int(centroid_p2[1])
 
 
-
-
-         # handle events
+        # handle events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
 
-        # draw tail circles with decreasing transparency
-        for i, position in enumerate(tail_positions):
-            alpha = int((1 - i/tail_length) * 255)
-            pygame.draw.circle(screen, (tail_color[0], tail_color[1], tail_color[2], alpha), position, circle1_radius)
+        # draw tail circles with decreasing brightness and decreasing radius
+        for i, position in enumerate(tail1_positions):
+            brightness = 255 - int(i/tail_length * 255)
+            tail_radius = circle_radius_normal - int((tail_length - i)/tail_length * circle_radius_normal)
+            tail1_color_dark = tuple(max(0, c - brightness) for c in tail1_color)
+            pygame.draw.circle(screen, tail1_color_dark, position, tail_radius)
 
-        #print all of the variables i;m about to use in draw
-        print(f'circle1_x: {circle1_x}')
-        print(f'circle1_y: {circle1_y}')
-        print(f'circle2_x: {circle2_x}')
-        print(f'circle2_y: {circle2_y}')
-        print(f'circle1_radius: {circle1_radius}')
-        print(f'circle2_radius: {circle2_radius}')
-        print(f'circle1_color: {circle1_color}')
-        print(f'circle2_color: {circle2_color}')
-        print(f'screehn: {screen}')
-
-        # draw circle1
+        # draw circle
         pygame.draw.circle(screen, circle1_color, (circle1_x, circle1_y), circle1_radius)
 
-        # draw circle2
+        # draw current circle
+        pygame.draw.circle(screen, circle1_color, (circle1_x, circle1_y), circle1_radius)
+
+        # draw tail circles with decreasing brightness and decreasing radius
+        for i, position in enumerate(tail2_positions):
+            brightness = 255 - int(i/tail_length * 255)
+            tail_radius = circle_radius_normal - int((tail_length - i)/tail_length * circle_radius_normal)
+            tail2_color_dark = tuple(max(0, c - brightness) for c in tail2_color)
+            pygame.draw.circle(screen, tail2_color_dark, position, tail_radius)
+
+        # draw circle
+        pygame.draw.circle(screen, circle2_color, (circle2_x, circle2_y), circle2_radius)
+
+        # draw current circle
         pygame.draw.circle(screen, circle2_color, (circle2_x, circle2_y), circle2_radius)
 
         # update screen
