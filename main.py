@@ -128,7 +128,7 @@ def zonesDetect (centroid_p):
         #we now know it is on the right half
         if centroid_p[1] > zoneDefs[2]:
             #we now know it is on the bottom half
-            zone_p = 3
+            zone_p = 1
         else:
             #we now know in the top half
             zone_p = 1
@@ -136,7 +136,7 @@ def zonesDetect (centroid_p):
         #we now know in the left half split down the middle vertically
         if centroid_p[1] > zoneDefs[2]:
             #we now know in the bottom half
-            zone_p = 2
+            zone_p = 0
         else:
             #we now know in the top half
             zone_p = 0
