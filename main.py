@@ -19,7 +19,7 @@ sys.path.insert(0, './Ableton/User Library/Remote Scripts/AbletonOSC')
 import AbletonTest
 
 # initialize Pygame
-import pygame
+#import pygame
 
 # initialize Pygame
 #pygame.init()
@@ -484,16 +484,16 @@ def main():
                 print('sumAreaChange is int and doesnt need to be changed')
 
             #if the sumAreaChange is less than 0.1, decrease the bpm by 5
-            if (sumAreaChange < 0.06 and bpm > bpmLowerLimit):
+            if (sumAreaChange < 0.1 and bpm > bpmLowerLimit):
                 bpm -= 5.0
                 AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
                 print('bpm changed -5')
-            elif (sumAreaChange < 0.15 and bpm > bpmLowerLimit):
+            elif (sumAreaChange < 0.20 and bpm > bpmLowerLimit):
                 bpm -= 3.0
                 AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
                 print('bpm changed -3')
             #if the sumAreaChange is greater than 0.1 and bpm is not equal to originalBPM, increase the bpm by 5
-            elif (sumAreaChange > 0.15 and bpm != originalBPM):
+            elif (sumAreaChange > 0.20 and bpm != originalBPM):
                 bpm += 3.0
                 if (bpm > 132):
                     bpm = 132
@@ -538,7 +538,7 @@ def main():
                 prevTrackZone = p1_zone
 
                 #call circleGrow function
-                circleGrow(screen_width, screen_height, centroid_p1, centroid_p2, p1_zone)
+#                circleGrow(screen_width, screen_height, centroid_p1, centroid_p2, p1_zone)
 
                           
             
