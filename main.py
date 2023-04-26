@@ -14,9 +14,6 @@ import supervision as sv
 import numpy as np
 import math
 import torch
-
-import pygame
-
 import sys
 sys.path.insert(0, './Ableton/User Library/Remote Scripts/AbletonOSC')
 import AbletonTest
@@ -25,7 +22,7 @@ import AbletonTest
 import pygame
 
 # initialize Pygame
-pygame.init()
+#pygame.init()
 
 
 colors = sv.ColorPalette.default()
