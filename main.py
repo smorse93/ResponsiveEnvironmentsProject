@@ -143,45 +143,45 @@ def zonesDetect (centroid_p):
 
     return zone_p
 
-#expanding circle on music switch 
-def circleGrow (screen_width, screen_height, centroid_p1, centroid_p2, p1_zone):
+# #expanding circle on music switch 
+# def circleGrow (screen_width, screen_height, centroid_p1, centroid_p2, p1_zone):
 
-    # set up circle dimensions
-    circle_radius = 1
+#     # set up circle dimensions
+#     circle_radius = 1
 
-    #make circle color a different value depending on which zone the centroid is in
-    # if p1_zone == 0:
-    #     circle_color = (255, 0, 0)
-    # elif p1_zone == 1:
-    #     circle_color = (0, 255, 0)
-    # elif p1_zone == 2:
-    #     circle_color = (0, 0, 255)
-    # elif p1_zone == 3:
-    #     circle_color = (255, 255, 0)
+#     #make circle color a different value depending on which zone the centroid is in
+#     # if p1_zone == 0:
+#     #     circle_color = (255, 0, 0)
+#     # elif p1_zone == 1:
+#     #     circle_color = (0, 255, 0)
+#     # elif p1_zone == 2:
+#     #     circle_color = (0, 0, 255)
+#     # elif p1_zone == 3:
+#     #     circle_color = (255, 255, 0)
 
-    circle_color = (255, 255, 0) # YELLOW
-    #get the middle point between centroid_p1 and centroid_p2
-    circle_x = int((centroid_p1[0] + centroid_p2[0])/2)
-    circle_y = int((centroid_p1[1] + centroid_p2[1])/2)
+#     circle_color = (255, 255, 0) # YELLOW
+#     #get the middle point between centroid_p1 and centroid_p2
+#     circle_x = int((centroid_p1[0] + centroid_p2[0])/2)
+#     circle_y = int((centroid_p1[1] + centroid_p2[1])/2)
     
-    screen = pygame.display.set_mode((screen_width, screen_height))
+#     screen = pygame.display.set_mode((screen_width, screen_height))
 
-    # main loop
-    while circle_radius <= math.sqrt(screen_width ** 2 + screen_height ** 2):
-        # handle events
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                exit()
+    # # main loop
+    # while circle_radius <= math.sqrt(screen_width ** 2 + screen_height ** 2):
+    #     # handle events
+    #     for event in pygame.event.get():
+    #         if event.type == pygame.QUIT:
+    #             pygame.quit()
+    #             exit()
 
-        # increase circle radius
-        circle_radius += 3
+    #     # increase circle radius
+    #     circle_radius += 3
 
-        # draw circle
-        pygame.draw.circle(screen, circle_color, (circle_x, circle_y), circle_radius)
+    #     # draw circle
+    #     pygame.draw.circle(screen, circle_color, (circle_x, circle_y), circle_radius)
 
-        # update screen
-        pygame.display.update()
+    #     # update screen
+    #     pygame.display.update()
 
 #--------------------- MAIN ----------------------
 def main():
