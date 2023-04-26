@@ -260,36 +260,36 @@ def main():
     ########################################################
     ####---Viz stuff---####
     ########################################################
-    #color border purple(67, 10, 201)
-    border_color = (255,255,255)
+    # #color border purple(67, 10, 201)
+    # border_color = (255,255,255)
 
-    # set up screen dimensions
-    screen_width = 1080
-    screen_height = 720
-    screen = pygame.display.set_mode((screen_width, screen_height))
+    # # set up screen dimensions
+    # screen_width = 1080
+    # screen_height = 720
+    # screen = pygame.display.set_mode((screen_width, screen_height))
 
-    # set up first circle dimensions
-    circle_radius_normal = 30
-    circle1_radius = 30  
-    circle1_color = (0, 255, 255)  # cyan
-    circle1_x = screen_width // 2
-    circle1_y = screen_height // 2
+    # # set up first circle dimensions
+    # circle_radius_normal = 30
+    # circle1_radius = 30  
+    # circle1_color = (0, 255, 255)  # cyan
+    # circle1_x = screen_width // 2
+    # circle1_y = screen_height // 2
 
-    # set up second circle dimensions
-    circle2_radius = 30
-    circle2_color = (255, 0, 0)  # red
-    circle2_x = 0
-    circle2_y = 0
+    # # set up second circle dimensions
+    # circle2_radius = 30
+    # circle2_color = (255, 0, 0)  # red
+    # circle2_x = 0
+    # circle2_y = 0
 
-    # set up tail dimensions
-    tail_length = 5
-    tail1_color = circle1_color
-    tail2_color = circle2_color
+    # # set up tail dimensions
+    # tail_length = 5
+    # tail1_color = circle1_color
+    # tail2_color = circle2_color
     
-    tail1_color_dark = (0, 255, 255)
-    tail2_color_dark = (0, 255, 255)
-    tail1_positions = []
-    tail2_positions = []
+    # tail1_color_dark = (0, 255, 255)
+    # tail2_color_dark = (0, 255, 255)
+    # tail1_positions = []
+    # tail2_positions = []
 
     ########################################################
     ########################################################
