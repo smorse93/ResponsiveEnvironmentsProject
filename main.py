@@ -475,7 +475,7 @@ def main():
         print(f'listAreaChange: {listAreaChange}')
         print(f'bpm: {bpm}')
         frameCount += 1
-        if frameCount == 4 and not p3_detect:
+        if frameCount == 4:
             frameCount = 0
             print('CHANGING BPM')
 
@@ -487,32 +487,33 @@ def main():
             else:
                 print('sumAreaChange is int and doesnt need to be changed')
 
-            #if the sumAreaChange is less than 0.1, decrease the bpm by 5
-            if (sumAreaChange < 0.1 and bpm > bpmLowerLimit):
-                bpm -= 5.0
-                AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
-                print('bpm changed -5')
-            elif (sumAreaChange < 0.20 and bpm > bpmLowerLimit):
-                bpm -= 3.0
-                AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
-                print('bpm changed -3')
-            #if the sumAreaChange is greater than 0.1 and bpm is not equal to originalBPM, increase the bpm by 5
-            elif (sumAreaChange > 0.20 and bpm != originalBPM):
-                bpm += 3.0
-                if (bpm > 132):
-                    bpm = 132
-                AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
-                print('bpm changed +3')
-            elif (sumAreaChange > 0.4 and bpm != originalBPM):
-                 bpm += 5.0
-                 if (bpm > 132):
-                     bpm = 132
-                 AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
-                 print('bpm changed +5')
-            else:
-                print('NO CHANGE')
-                print(sumAreaChange)
-                print(type(sumAreaChange))
+                #if the sumAreaChange is less than 0.1, decrease the bpm by 5
+            if (not p3_detect):    
+                if (sumAreaChange < 0.1 and bpm > bpmLowerLimit):
+                    bpm -= 5.0
+                    AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
+                    print('bpm changed -5')
+                elif (sumAreaChange < 0.20 and bpm > bpmLowerLimit):
+                    bpm -= 3.0
+                    AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
+                    print('bpm changed -3')
+                #if the sumAreaChange is greater than 0.1 and bpm is not equal to originalBPM, increase the bpm by 5
+                elif (sumAreaChange > 0.20 and bpm != originalBPM):
+                    bpm += 3.0
+                    if (bpm > 132):
+                        bpm = 132
+                    AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
+                    print('bpm changed +3')
+                elif (sumAreaChange > 0.4 and bpm != originalBPM):
+                    bpm += 5.0
+                    if (bpm > 132):
+                        bpm = 132
+                    AbletonTest.doSomething("/live/song/set/tempo " + str(bpm))
+                    print('bpm changed +5')
+                else:
+                    print('NO CHANGE')
+                    print(sumAreaChange)
+                    print(type(sumAreaChange))
                 
             #reset listAreaChange to 0's
             listAreaChange = [0.000,0.000,0.000,0.000]
