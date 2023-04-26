@@ -345,6 +345,7 @@ def main():
         #reset p1 and p2
         p1_detect = False
         p2_detect = False
+        p3_detect = False
         
         #set values for p1_loc and p2_loc
         if detections.xyxy.any():
@@ -354,6 +355,9 @@ def main():
             if len(detections.xyxy) >= 2:
                 p2_loc = detections.xyxy[1]      
                 p2_detect = True
+
+            if len(detections.xyxy) >= 3:
+                p3_detect = True
         
         print(f'detections{detections.xyxy}')
         print(f'p1_detect{p1_detect}')   
@@ -443,7 +447,7 @@ def main():
         # dist ranges from 0.0 (minimum) to 1297.99846 (maximum)
         # volume ranges from 0.0 (minimum) to 1.0 (maxiumum)
 
-        if (p1_detect and p2_detect):
+        if (p1_detect and p2_detect and not p3_detect):
             if (dist < 300):
                 AbletonTest.doSomething("/live/track/set/volume " + str(currentTrack) + " .75")
             elif (dist < 400):
@@ -471,7 +475,7 @@ def main():
         print(f'listAreaChange: {listAreaChange}')
         print(f'bpm: {bpm}')
         frameCount += 1
-        if frameCount == 4:
+        if frameCount == 4 and not p3_detect:
             frameCount = 0
             print('CHANGING BPM')
 
@@ -525,7 +529,7 @@ def main():
             p2_zone = zonesDetect(centroid_p2)
             print(f'p2_zone: {p2_zone}')
             
-            if (p1_zone == p2_zone) and (p1_zone != prevTrackZone):
+            if (p1_zone == p2_zone) and (p1_zone != prevTrackZone) and not p3_detect:
                 print(f'prevTrackZone: {prevTrackZone}')
                 print(f'matchedZone: {p1_zone}')
                 #set current track to new zone
